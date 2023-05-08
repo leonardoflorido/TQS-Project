@@ -6,16 +6,15 @@ export const Shop = () => {
     const [products, setProducts] = React.useState([]);
     // Fetch api
     React.useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/v1/products/")
+        fetch("http://127.0.0.1:8000/api/products/")
             .then((response) => response.json())
             .then((data) => setProducts(data));
     }, []);
 
-
     return (
         <div className="shop">
             <div className="shopTitle">
-                <h1>TQS Shop</h1>
+                <h1>eStore</h1>
             </div>
 
             <div className="products">

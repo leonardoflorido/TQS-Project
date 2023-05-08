@@ -1,7 +1,9 @@
 import {createContext, useState} from "react";
-import {PRODUCTS} from "../products";
+
 
 export const ShopContext = createContext(null);
+
+var PRODUCTS = [];
 
 const getDefaultCart = () => {
     let cart = {};
