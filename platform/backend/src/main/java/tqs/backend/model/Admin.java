@@ -1,18 +1,16 @@
 package tqs.backend.model;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Entity
 @Table(name = "Admin")
 public class Admin {
+    private final String name, email, password;
     @Id
     @GeneratedValue
     private Long id;
-    private String name, email, password;
-
-    public Admin() {
-    }
 
     public Admin(String name, String email, String password) {
         this.name = name;

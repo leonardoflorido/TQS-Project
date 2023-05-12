@@ -1,20 +1,15 @@
 package tqs.backend.model;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Entity
 @Table(name = "Customer")
 public class Customer {
+    private final String name, email, phone, address;
     @Id
     @GeneratedValue
     private Long id;
-    private String name, email, phone, address;
-
-    public Customer() {
-    }
 
     public Customer(String name, String email, String phone, String address) {
         this.name = name;

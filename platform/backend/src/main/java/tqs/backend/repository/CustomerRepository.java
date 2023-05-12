@@ -7,7 +7,10 @@ import tqs.backend.model.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findByName(String name);
+
     Customer findByEmail(String email);
+
     Customer findByPhone(String phone);
+
     Customer findByAddress(String address);
 }

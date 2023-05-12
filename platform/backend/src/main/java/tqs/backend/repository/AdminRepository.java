@@ -7,5 +7,6 @@ import tqs.backend.model.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
     Admin findByName(String name);
+
     Admin findByEmail(String email);
 }
