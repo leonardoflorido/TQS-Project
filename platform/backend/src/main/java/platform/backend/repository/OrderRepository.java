@@ -1,8 +1,8 @@
-package tqs.backend.repository;
+package platform.backend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tqs.backend.model.Customer;
-import tqs.backend.model.Order;
+import platform.backend.model.Customer;
+import platform.backend.model.Order;
 
 import java.util.Date;
 

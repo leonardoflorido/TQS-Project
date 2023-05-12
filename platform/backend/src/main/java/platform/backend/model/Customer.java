@@ -1,4 +1,4 @@
-package tqs.backend.model;
+package platform.backend.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

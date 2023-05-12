@@ -1,4 +1,4 @@
-package tqs.backend.model;
+package platform.backend.model;
 
 
 import jakarta.persistence.GeneratedValue;
@@ -7,10 +7,11 @@ import jakarta.persistence.Table;
 
 @Table(name = "Admin")
 public class Admin {
-    private final String name, email, password;
+    private final String name, email;
     @Id
     @GeneratedValue
     private Long id;
+    private String password;
 
     public Admin(String name, String email, String password) {
         this.name = name;
@@ -32,5 +33,9 @@ public class Admin {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

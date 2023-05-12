@@ -1,4 +1,4 @@
-package tqs.backend.model;
+package platform.backend.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -8,10 +8,12 @@ import java.util.ArrayList;
 
 @Table(name = "ACP")
 public class ACP {
-    private final String name, email, phone, password, address;
+    private final String name, email, phone, address;
     @Id
     @GeneratedValue
     private Long id;
+    private String password;
+    private String status;
     private ArrayList<Order> orders;
 
     public ACP(String name, String email, String phone, String password, String address) {
@@ -20,6 +22,7 @@ public class ACP {
         this.phone = phone;
         this.password = password;
         this.address = address;
+        this.status = "pending";
         this.orders = new ArrayList<>();
     }
 
@@ -43,8 +46,20 @@ public class ACP {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getAddress() {
         return address;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public ArrayList<Order> getOrders() {
