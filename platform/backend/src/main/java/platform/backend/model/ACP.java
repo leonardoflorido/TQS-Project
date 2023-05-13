@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "ACP")
+@Table(name = "acp")
 public class ACP {
     private String name, email, phone, address;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String password;
     private String status;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<Orders> orders;
 
     public ACP() {
     }
@@ -67,19 +67,19 @@ public class ACP {
         this.status = status;
     }
 
-    public List<Order> getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
-    public void addOrder(Order order) {
-        this.orders.add(order);
+    public void addOrder(Orders orders) {
+        this.orders.add(orders);
     }
 
-    public void removeOrder(Order order) {
-        this.orders.remove(order);
+    public void removeOrder(Orders orders) {
+        this.orders.remove(orders);
     }
 }

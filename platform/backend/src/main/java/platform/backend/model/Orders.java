@@ -6,26 +6,26 @@ import java.util.Date;
 import java.util.Map;
 
 @Entity
-@Table(name = "Order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
     private String eStore;
     private Date date;
     @ElementCollection
-    @CollectionTable(name = "Order_Products", joinColumns = @JoinColumn(name = "Order_id"))
-    @MapKeyJoinColumn(name = "Product_id")
+    @CollectionTable(name = "orders_products", joinColumns = @JoinColumn(name = "order_id"))
+    @MapKeyJoinColumn(name = "product_id")
     @Column(name = "quantity")
     private Map<Product, Integer> products;
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String status;
 
-    public Order() {
+    public Orders() {
     }
 
-    public Order(String eStore, Date date, Map<Product, Integer> products, String status, Customer customer) {
+    public Orders(String eStore, Date date, Map<Product, Integer> products, String status, Customer customer) {
         this.eStore = eStore;
         this.date = date;
         this.products = products;
