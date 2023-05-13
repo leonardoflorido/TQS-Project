@@ -1,7 +1,11 @@
-from rest_framework import generics
-from .models import Product
-from .serializers import ProductSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-class ProductView(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+from .serializers import *
+
+
+@api_view(['GET'])
+def get_products(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
