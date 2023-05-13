@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import platform.backend.exception.DetailsException;
 import platform.backend.model.ACP;
 import platform.backend.service.ACPService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/acp")
@@ -45,6 +44,11 @@ public class ACPController {
             throw new DetailsException("ACP does not exist");
         }
 
+        // Verify if the status is partener
+        if (!foundACP.getStatus().equals("partener")) {
+            throw new DetailsException("ACP is not partener");
+        }
+
         // Verify if the password is correct
         if (!new BCryptPasswordEncoder().matches(acp.getPassword(), foundACP.getPassword())) {
             throw new DetailsException("Incorrect password");
@@ -52,5 +56,26 @@ public class ACPController {
 
         // Return the admin
         return new ResponseEntity<>(foundACP, HttpStatus.OK);
+    }
+
+    @GetMapping("/get_all")
+    public ResponseEntity<List<ACP>> get_all() {
+        return new ResponseEntity<>(acpService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<ACP> get(@RequestParam Long id) {
+        return new ResponseEntity<>(acpService.findById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<ACP> update(@RequestBody ACP acp) {
+        return new ResponseEntity<>(acpService.save(acp), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestParam Long id) {
+        acpService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

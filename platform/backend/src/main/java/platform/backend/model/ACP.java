@@ -1,28 +1,33 @@
 package platform.backend.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 @Table(name = "ACP")
 public class ACP {
-    private final String name, email, phone, address;
+    private String name, email, phone, address;
     @Id
     @GeneratedValue
     private Long id;
     private String password;
     private String status;
-    private ArrayList<Order> orders;
 
-    public ACP(String name, String email, String phone, String password, String address) {
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    public ACP() {
+    }
+
+    public ACP(String name, String email, String phone, String password, String address, String status) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.address = address;
-        this.status = "pending";
+        this.status = status;
         this.orders = new ArrayList<>();
     }
 
@@ -62,11 +67,11 @@ public class ACP {
         this.status = status;
     }
 
-    public ArrayList<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(ArrayList<Order> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 

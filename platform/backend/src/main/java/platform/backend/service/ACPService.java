@@ -28,24 +28,8 @@ public class ACPService {
         acpRepository.deleteById(id);
     }
 
-    public ACP findByName(String name) {
-        return acpRepository.findByName(name);
-    }
-
     public ACP findByEmail(String email) {
         return acpRepository.findByEmail(email);
-    }
-
-    public ACP findByPhone(String phone) {
-        return acpRepository.findByPhone(phone);
-    }
-
-    public ACP findByAddress(String address) {
-        return acpRepository.findByAddress(address);
-    }
-
-    public List<ACP> findByStatus(String status) {
-        return acpRepository.findByStatus(status);
     }
 
     public List<ACP> findAll() {

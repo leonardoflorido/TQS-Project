@@ -1,22 +1,29 @@
 package platform.backend.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 import java.util.Map;
 
+@Entity
 @Table(name = "Order")
 public class Order {
-    private final String eStore;
-    private final Date date;
-    private final Map<Product, Integer> products;
-    private final Customer customer;
+    private String eStore;
+    private Date date;
+    @ElementCollection
+    @CollectionTable(name = "Order_Products", joinColumns = @JoinColumn(name = "Order_id"))
+    @MapKeyJoinColumn(name = "Product_id")
+    @Column(name = "quantity")
+    private Map<Product, Integer> products;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Customer customer;
     @Id
     @GeneratedValue
     private Long id;
     private String status;
+
+    public Order() {
+    }
 
     public Order(String eStore, Date date, Map<Product, Integer> products, String status, Customer customer) {
         this.eStore = eStore;

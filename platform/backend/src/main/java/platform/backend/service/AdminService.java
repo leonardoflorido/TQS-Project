@@ -26,10 +26,6 @@ public class AdminService {
         adminRepository.deleteById(id);
     }
 
-    public Admin findByName(String name) {
-        return adminRepository.findByName(name);
-    }
-
     public Admin findByEmail(String email) {
         return adminRepository.findByEmail(email);
     }

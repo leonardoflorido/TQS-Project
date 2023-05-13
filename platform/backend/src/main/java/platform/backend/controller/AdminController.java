@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import platform.backend.exception.DetailsException;
 import platform.backend.model.Admin;
 import platform.backend.service.AdminService;
@@ -53,5 +50,16 @@ public class AdminController {
 
         // Return the admin
         return new ResponseEntity<>(foundAdmin, HttpStatus.OK);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<Admin> get(@RequestParam Long id) {
+        return new ResponseEntity<>(adminService.findById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestParam Long id) {
+        adminService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
