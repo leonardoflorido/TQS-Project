@@ -1,19 +1,15 @@
 package platform.backend.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "admin")
+@Document("Admin")
 public class Admin {
-    private String name, email;
+    private final String name, email;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String password;
-
-    public Admin() {
-    }
 
     public Admin(String name, String email, String password) {
         this.name = name;

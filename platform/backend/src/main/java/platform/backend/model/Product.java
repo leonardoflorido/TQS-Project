@@ -1,24 +1,20 @@
 package platform.backend.model;
 
-import jakarta.persistence.*;
+import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "product")
+@Document("Product")
 public class Product {
-    private String name, price;
+    private final String name, price;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    public Product() {
-    }
+    private String id;
 
     public Product(String name, String price) {
         this.name = name;
         this.price = price;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
