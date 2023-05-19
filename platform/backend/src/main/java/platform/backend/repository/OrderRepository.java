@@ -5,13 +5,15 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import platform.backend.model.Order;
 
+import java.util.List;
+
 @Repository
 public interface OrderRepository extends MongoRepository<Order, String> {
     @Query("{ 'pickupId' : ?0 }")
-    Order findByPickupId(String pickupId);
+    List<Order> findByPickupId(String pickupId);
 
     @Query("{ 'customerId' : ?0 }")
-    Order findByCustomerId(String customerId);
+    List<Order> findByCustomerId(String customerId);
 
     @Query("{ 'eStore' : ?0 }")
     Order findByEStore(String eStore);

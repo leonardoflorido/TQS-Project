@@ -5,6 +5,7 @@ import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Document("Order")
@@ -13,12 +14,12 @@ public class Order {
     private final String customerId;
     private final String eStore;
     private final Date date;
-    private final Map<String, Integer> products;
+    private final List<Product> products;
     @Id
     private String id;
     private String status;
 
-    public Order(String pickupId, String customerId, String eStore, Date date, Map<String, Integer> products, String status) {
+    public Order(String pickupId, String customerId, String eStore, Date date, List<Product> products, String status) {
         this.pickupId = pickupId;
         this.customerId = customerId;
         this.eStore = eStore;
@@ -43,7 +44,7 @@ public class Order {
         return date;
     }
 
-    public Map<String, Integer> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 

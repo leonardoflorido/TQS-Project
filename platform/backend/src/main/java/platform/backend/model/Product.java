@@ -5,13 +5,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("Product")
 public class Product {
-    private final String name, price;
+    private final String name;
+    private final Float price;
+    private final int quantity;
     @Id
     private String id;
 
-    public Product(String name, String price) {
+    public Product(String name, Float price, int quantity) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public String getId() {
@@ -22,7 +25,11 @@ public class Product {
         return name;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }
