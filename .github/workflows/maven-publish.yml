@@ -1,4 +1,4 @@
-name: t-tracker CI/CD Pipeline
+name: platform backend CI/CD Pipeline
 
 # controls when the action will run
 on:
