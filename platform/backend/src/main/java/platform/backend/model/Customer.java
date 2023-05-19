@@ -1,17 +1,13 @@
 package platform.backend.model;
 
-import jakarta.persistence.*;
+import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "customer")
+@Document("Customer")
 public class Customer {
-    private String name, email, phone, address;
+    private final String name, email, phone, address;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    public Customer() {
-    }
+    private String id;
 
     public Customer(String name, String email, String phone, String address) {
         this.name = name;
@@ -20,7 +16,7 @@ public class Customer {
         this.address = address;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

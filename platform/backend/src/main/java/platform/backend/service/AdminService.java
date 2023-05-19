@@ -14,19 +14,11 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public Admin save(Admin admin) {
-        return adminRepository.save(admin);
-    }
-
-    public Admin findById(Long id) {
-        return adminRepository.findById(id).orElse(null);
-    }
-
-    public void deleteById(Long id) {
-        adminRepository.deleteById(id);
-    }
-
     public Admin findByEmail(String email) {
         return adminRepository.findByEmail(email);
+    }
+
+    public Admin save(Admin admin) {
+        return adminRepository.save(admin);
     }
 }

@@ -1,24 +1,23 @@
 package platform.backend.model;
 
-import jakarta.persistence.*;
+import nonapi.io.github.classgraph.json.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "product")
+@Document("Product")
 public class Product {
-    private String name, price;
+    private final String name;
+    private final Float price;
+    private final int quantity;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    public Product() {
-    }
-
-    public Product(String name, String price) {
+    public Product(String name, Float price, int quantity) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -26,7 +25,11 @@ public class Product {
         return name;
     }
 
-    public String getPrice() {
+    public Float getPrice() {
         return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }
