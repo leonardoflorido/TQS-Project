@@ -1,13 +1,15 @@
 import * as React from 'react';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import Title from '../../components/Title.tsx';
-
-function preventDefault(event: React.MouseEvent) {
-  event.preventDefault();
-}
+import Title from '../../components/Title';
 
 export default function Deposits() {
+  const [data, setData] = React.useState({});
+  React.useEffect(() => {
+    // Fetch pickup orders from api
+    // Filter the most recent date
+    // Sum the total of orders
+    // setData({date, totalOrders})
+  }, []);
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
@@ -17,11 +19,6 @@ export default function Deposits() {
       <Typography color="text.secondary" sx={{ flex: 1 }}>
         on 12 May, 2023
       </Typography>
-      <div>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          View oders
-        </Link>
-      </div>
     </React.Fragment>
   );
 }

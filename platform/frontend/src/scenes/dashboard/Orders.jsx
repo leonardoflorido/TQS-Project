@@ -5,7 +5,7 @@ import {
 	useKeepGroupedColumnsHidden,
 	GridToolbar,
 } from "@mui/x-data-grid-premium";
-import Title from "../../components/Title.tsx";
+import Title from "../../components/Title";
 
 const data = [
 	{
@@ -37,7 +37,10 @@ const data = [
 	},
 ];
 
-export default function Pickups() {
+export default function Orders() {
+	React.useEffect(() => {
+		// 
+	}, []);
 	const apiRef = useGridApiRef();
 
 	const initialState = useKeepGroupedColumnsHidden({
@@ -51,7 +54,7 @@ export default function Pickups() {
 
 	return (
 		<React.Fragment>
-			<Title>Pickups</Title>
+			<Title>Recent Orders</Title>
 			<DataGridPremium
 				initialState={initialState}
 				rows={data}

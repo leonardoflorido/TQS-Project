@@ -32,13 +32,26 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get("email"),
-			password: data.get("password"),
+		const response = await fetch("http://localhost:8080/acp/register", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				username: "platform",
+				password: '!:s,d>m52""/f(^/-dSR',
+			},
+			body: JSON.stringify({
+				name: data.get("Name"),
+				email: data.get("email"),
+				phone: data.get("Phone"),
+				password: data.get("password"),
+				address: data.get("Address")
+			})
 		});
+		const json = await response.json();
+		console.log(json);
 	};
 
 	return (
@@ -71,25 +84,15 @@ export default function SignUp() {
 						}}
 					>
 						<Grid container spacing={2}>
-							<Grid item xs={12} sm={6}>
+							<Grid item xs={12}>
 								<TextField
 									autoComplete="given-name"
-									name="firstName"
+									name="Name"
 									required
 									fullWidth
-									id="firstName"
-									label="First Name"
+									id="Name"
+									label="Company Name"
 									autoFocus
-								/>
-							</Grid>
-							<Grid item xs={12} sm={6}>
-								<TextField
-									required
-									fullWidth
-									id="lastName"
-									label="Last Name"
-									name="lastName"
-									autoComplete="family-name"
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -100,6 +103,16 @@ export default function SignUp() {
 									label="Email Address"
 									name="email"
 									autoComplete="email"
+								/>
+							</Grid>
+							<Grid item xs={12}>
+								<TextField
+									required
+									fullWidth
+									id="phone"
+									label="Phone Number"
+									name="phone"
+									autoComplete="phone"
 								/>
 							</Grid>
 							<Grid item xs={12}>
@@ -124,39 +137,6 @@ export default function SignUp() {
 									autoComplete="Street Address"
 								/>
 							</Grid>
-                            <Grid item xs={12}>
-								<TextField
-									required
-									fullWidth
-									name="ZipCode"
-									label="Zip code"
-									type="text"
-									id="zipcode"
-									autoComplete="zipcode"
-								/>
-							</Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    name="City"
-                                    label="City"
-                                    type="text"
-                                    id="city"
-                                    autoComplete="city"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                            <TextField
-                                    required
-                                    fullWidth
-                                    name="Country"
-                                    label="Country"
-                                    type="text"
-                                    id="country"
-                                    autoComplete="Country"
-                                />
-                            </Grid>
 
 						</Grid>
 						<Button

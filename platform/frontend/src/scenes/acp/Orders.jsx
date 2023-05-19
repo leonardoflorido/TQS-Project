@@ -5,7 +5,8 @@ import {
 	useKeepGroupedColumnsHidden,
 	GridToolbar,
 } from "@mui/x-data-grid-premium";
-import Title from "../../components/Title.tsx";
+import { Button, Stack } from "@mui/material";
+import Title from "../../components/Title";
 
 const data = [
 	{
@@ -49,9 +50,25 @@ export default function Orders() {
 		},
 	});
 
+	const handleSave = () => {
+		const allRows = apiRef.current.getRowModels();
+		const rowsArray = [];
+		allRows.forEach((key) => {
+			rowsArray.push(key);
+		});
+
+		// Send the rows to the backend to update the database
+		// TODO
+	};
+
 	return (
 		<React.Fragment>
 			<Title>Recent Orders</Title>
+			<Stack direction="row" spacing={1}>
+				<Button size="small" onClick={handleSave}>
+					Save
+				</Button>
+			</Stack>
 			<DataGridPremium
 				initialState={initialState}
 				rows={data}
@@ -63,12 +80,20 @@ export default function Orders() {
 						headerName: "Order Status",
 						width: 150,
 						editable: true,
+						type: "singleSelect",
+						valueOptions: [
+							"Processing",
+							"In Transit",
+							"Waiting for collection",
+							"Completed",
+						],
 					},
 					{ field: "address", headerName: "Address", flex: 0.5 },
 					{ field: "date", headerName: "Date", flex: 0.5 },
 					{ field: "orderId", headerName: "Order ID", flex: 0.5 },
 					{ field: "costumer", headerName: "Costumer", flex: 0.5 },
 				]}
+				columnVisibilityModel={{"address": false, "eStore": false}}
 				autoHeight
 				slots={{ toolbar: GridToolbar }}
 				rowGroupingColumnMode="multiple"

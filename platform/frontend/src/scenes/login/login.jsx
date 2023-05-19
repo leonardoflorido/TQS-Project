@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props: any) {
+function Copyright(props) {
 	return (
 		<Typography
 			variant="body2"
@@ -22,8 +20,8 @@ function Copyright(props: any) {
 			{...props}
 		>
 			{"Copyright © "}
-			<Link color="inherit" href="https://mui.com/">
-				Your Website
+			<Link color="inherit" href="#">
+				TQS
 			</Link>{" "}
 			{new Date().getFullYear()}
 			{"."}
@@ -33,14 +31,62 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+export default function SignIn(props) {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-		console.log({
-			email: data.get("email"),
-			password: data.get("password"),
-		});
+		const credentials = new FormData(event.currentTarget);
+
+		if (props.user === "admin") {
+			const response = await fetch("http://localhost:8080/admin/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					username: "platform",
+					password: '!:s,d>m52""/f(^/-dSR',
+				},
+				body: JSON.stringify({
+					email: credentials.get("email"),
+					password: credentials.get("password"),
+				}),
+			});
+			const data = await response.json();
+
+			if (response.status === 200) {
+				// set local storage token
+				localStorage.setItem("user", data.username);
+
+				window.location.href = "/admin/dashboard";
+			} else {
+				alert("Login failed");
+			}
+		} else {
+			const response = await fetch("http://localhost:8080/acp/login", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					username: "platform",
+					password: '!:s,d>m52""/f(^/-dSR',
+				},
+				body: JSON.stringify({
+					email: credentials.get("email"),
+					password: credentials.get("password"),
+				}),
+			});
+			const data = await response.json();
+
+			if (response.status === 200) {
+				if (data.status === "Partener") {
+					// set local storage token
+					localStorage.setItem("user", data.username);
+
+					window.location.href = "/acp/dashboard";
+				} else {
+					alert("Your account is still pending");
+				}
+			} else {
+				alert("Login failed");
+			}
+		}
 	};
 
 	return (
@@ -87,29 +133,15 @@ export default function SignIn() {
 							id="password"
 							autoComplete="current-password"
 						/>
-						<FormControlLabel
-							control={
-								<Checkbox value="remember" color="primary" />
-							}
-							label="Remember me"
-						/>
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
 							sx={{ mt: 3, mb: 2 }}
-							onClick={() => {
-								window.location.href = "/";
-							}}
 						>
 							Sign In
 						</Button>
 						<Grid container>
-							<Grid item xs>
-								<Link href="#" variant="body2">
-									Forgot password?
-								</Link>
-							</Grid>
 							<Grid item>
 								<Link href="/signup" variant="body2">
 									{"Don't have an account? Sign Up"}
