@@ -50,6 +50,7 @@ jobs:
 
       - name: Step 3 - Have Github Actions build Maven project
         run: mvn -B package --file platform/backend/pom.xml
+        working-directory: platform/backend
         
       - name: Step 4 - List the current directory
         run: ls -la
@@ -62,6 +63,7 @@ jobs:
   sonar:
     name: platforms's SonarCloud Code Inspection
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
         with:
