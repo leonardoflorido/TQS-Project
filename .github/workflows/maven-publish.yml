@@ -89,4 +89,4 @@ jobs:
           SONAR_HOST_URL: http://localhost:9000
         run: |
           cd platform/backend 
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TQS_Project
+          mvn clean verify sonar:sonar -Dsonar.projectKey=TQS_Project -Dsonar.host.url=http://localhost:9000 -Dsonar.login=f82aca9f68ecd9319170d4acd08e83d521e11b48
