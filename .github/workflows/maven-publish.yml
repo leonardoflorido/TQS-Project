@@ -93,7 +93,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: f82aca9f68ecd9319170d4acd08e83d521e11b48
+          SONAR_TOKEN: 625411a06465e33b68f5a5513ea2adbe14ea5e89
           SONAR_HOST_URL: http://localhost:9000
         working-directory: platform/backend
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TQS_Project
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=backend
