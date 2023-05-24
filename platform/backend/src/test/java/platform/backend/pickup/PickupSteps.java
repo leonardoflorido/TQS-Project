@@ -1,6 +1,5 @@
-package platform.backend.controller;
+package platform.backend.pickup;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import platform.backend.controller.PickupController;
 import platform.backend.model.Pickup;
 import platform.backend.service.PickupService;
 
@@ -19,9 +18,10 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(PickupController.class)
-public class RegisterPickupSteps {
+public class PickupSteps {
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -33,7 +33,7 @@ public class RegisterPickupSteps {
     private int responseStatusCode;
 
     @Given("I have a valid pickup registration endpoint at {string}")
-    public void setApiUrl(String endpointUrl) {
+    public void setApiUrl() {
     }
 
     @When("I send a POST request with the following payload:")
@@ -41,8 +41,8 @@ public class RegisterPickupSteps {
         Pickup pickup = new Pickup(requestData.get("name"), requestData.get("email"), requestData.get("phone"), requestData.get("password"), requestData.get("address"), requestData.get("status"));
         when(service.save(pickup)).thenReturn(pickup);
         MvcResult result = mvc.perform(post("/pickup/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pickup)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(pickup)))
                 .andReturn();
         responseStatusCode = result.getResponse().getStatus();
     }

@@ -26,7 +26,7 @@ public class AdminController {
     @PostMapping("/register")
     public ResponseEntity<Admin> registerAdmin(@Valid @RequestBody Admin admin) throws DetailsException {
         // Verify if the admin already exists
-        if(adminService.findByEmail(admin.getEmail()) != null){
+        if (adminService.findByEmail(admin.getEmail()) != null) {
             throw new DetailsException("Email already registered");
         }
 
@@ -41,12 +41,12 @@ public class AdminController {
     public ResponseEntity<Admin> loginAdmin(@Valid @RequestBody Admin admin) throws DetailsException {
         // Verify if the admin exists
         Admin adminFound = adminService.findByEmail(admin.getEmail());
-        if(adminFound == null){
+        if (adminFound == null) {
             throw new DetailsException("Email does not exist");
         }
 
         // Verify if the password is correct
-        if(!new BCryptPasswordEncoder().matches(admin.getPassword(), adminFound.getPassword())){
+        if (!new BCryptPasswordEncoder().matches(admin.getPassword(), adminFound.getPassword())) {
             throw new DetailsException("Incorrect password");
         }
 
