@@ -31,16 +31,19 @@ public class PickupSteps {
     @MockBean
     private PickupService service;
     private int responseStatusCode;
+    private String url;
 
     @Given("I have a valid pickup registration endpoint at {string}")
-    public void setApiUrl() {
+    public void setApiUrl(String endpointUrl) {
+        url = endpointUrl;
+        System.out.println("url: " + url);
     }
 
     @When("I send a POST request with the following payload:")
     public void sendPostRequest(Map<String, String> requestData) throws Exception {
         Pickup pickup = new Pickup(requestData.get("name"), requestData.get("email"), requestData.get("phone"), requestData.get("password"), requestData.get("address"), requestData.get("status"));
         when(service.save(pickup)).thenReturn(pickup);
-        MvcResult result = mvc.perform(post("/pickup/register")
+        MvcResult result = mvc.perform(post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(pickup)))
                 .andReturn();
