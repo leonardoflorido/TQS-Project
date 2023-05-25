@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Admin {
     private final String name, email;
     @Id
-    private Long id;
+    private String id;
     private String password;
 
     public Admin(String name, String email, String password) {
@@ -17,7 +17,7 @@ public class Admin {
         this.password = password;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
