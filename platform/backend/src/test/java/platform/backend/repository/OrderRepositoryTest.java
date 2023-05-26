@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import platform.backend.model.Order;
-import platform.backend.repository.OrderRepository;
 
 import java.util.Arrays;
 import java.util.Date;
