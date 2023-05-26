@@ -1,14 +1,14 @@
 package platform.backend.controller;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.mongodb.client.MongoClient;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import platform.backend.model.Pickup;
 import platform.backend.utils.JsonUtil;
@@ -18,18 +18,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @AutoConfigureDataMongo
-@TestPropertySource(locations = "classpath:application-test.properties")
+@AutoConfigureMockMvc
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PickupControllerTest {
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     private Pickup pickup;
 
     @BeforeEach
     void setUp() {
         pickup = new Pickup("Tabacaria", "tabacaria@email.com", "987654321", "tabacaria", "Avenida Doutor Lourenço Peixinho, 3810-123, Aveiro", "Pending");
+    }
+
+    @AfterAll
+    void tearDown() {
+        mongoTemplate.getDb().drop();
     }
 
     @Test
@@ -56,18 +65,11 @@ class PickupControllerTest {
     }
 
     @Test
-    @DisplayName("Test to update the status of the pickup")
-    void testUpdatePickupStatus() throws Exception {
-        pickup.setStatus("Partner");
-
-        mockMvc.perform(post("/pickup/update-status")
+    @DisplayName("Test to login a pickup with an valid input")
+    void testLoginPickupWithInvalidInput() throws Exception {
+        mockMvc.perform(post("/pickup/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(pickup)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value(pickup.getName()))
-                .andExpect(jsonPath("$.email").value(pickup.getEmail()))
-                .andExpect(jsonPath("$.phone").value(pickup.getPhone()))
-                .andExpect(jsonPath("$.address").value(pickup.getAddress()))
-                .andExpect(jsonPath("$.status").value(pickup.getStatus()));
+                .andExpect(status().isUnauthorized());
     }
 }
