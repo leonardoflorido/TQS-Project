@@ -3,22 +3,16 @@ package platform.backend.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import platform.backend.model.Pickup;
-import platform.backend.service.PickupService;
 import platform.backend.utils.JsonUtil;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,12 +20,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureDataMongo
+@TestPropertySource(locations = "classpath:application-test.properties")
 class PickupControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private PickupService pickupService;
 
     private Pickup pickup;
 
@@ -43,8 +35,6 @@ class PickupControllerTest {
     @Test
     @DisplayName("Test to register a pickup with a valid input")
     void testRegisterPickupWithValidInput() throws Exception {
-        when(pickupService.save(any(Pickup.class))).thenReturn(pickup);
-
         mockMvc.perform(post("/pickup/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(pickup)))
@@ -63,5 +53,21 @@ class PickupControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(null)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Test to update the status of the pickup")
+    void testUpdatePickupStatus() throws Exception {
+        pickup.setStatus("Partner");
+
+        mockMvc.perform(post("/pickup/update-status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(pickup)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(pickup.getName()))
+                .andExpect(jsonPath("$.email").value(pickup.getEmail()))
+                .andExpect(jsonPath("$.phone").value(pickup.getPhone()))
+                .andExpect(jsonPath("$.address").value(pickup.getAddress()))
+                .andExpect(jsonPath("$.status").value(pickup.getStatus()));
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import platform.backend.exception.DetailsException;
 import platform.backend.model.Pickup;
 import platform.backend.service.PickupService;
 
@@ -23,10 +22,10 @@ public class PickupController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Pickup> registerPickup(@Valid @RequestBody Pickup pickup) throws DetailsException {
+    public ResponseEntity<Pickup> registerPickup(@Valid @RequestBody Pickup pickup) {
         // Verify if the pickup already exists
         if (pickupService.findByEmail(pickup.getEmail()) != null) {
-            throw new DetailsException("Pickup already exists");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Encrypt the password
@@ -37,21 +36,21 @@ public class PickupController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Pickup> loginPickup(@Valid @RequestBody Pickup pickup) throws DetailsException {
+    public ResponseEntity<Pickup> loginPickup(@Valid @RequestBody Pickup pickup) {
         // Verify if the pickup exists
         Pickup pickupFound = pickupService.findByEmail(pickup.getEmail());
         if (pickupFound == null) {
-            throw new DetailsException("Pickup does not exist");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // Verify if the pickup is a partner
         if (!Objects.equals(pickupFound.getStatus(), "Partner")) {
-            throw new DetailsException("Pickup is not a partner");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         // Verify if the password is correct
         if (!new BCryptPasswordEncoder().matches(pickup.getPassword(), pickupFound.getPassword())) {
-            throw new DetailsException("Incorrect password");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         // Return the pickup
@@ -59,7 +58,7 @@ public class PickupController {
     }
 
     @PutMapping("/update-status")
-    public ResponseEntity<Pickup> updatePickupStatus(@Valid @RequestBody Pickup pickup) throws DetailsException {
+    public ResponseEntity<Pickup> updatePickupStatus(@Valid @RequestBody Pickup pickup) {
         Pickup pickupFound = pickupService.findByEmail(pickup.getEmail());
 
         // Change the pickup's status
