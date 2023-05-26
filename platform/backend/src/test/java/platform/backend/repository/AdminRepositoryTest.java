@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import platform.backend.model.Admin;
+import platform.backend.repository.AdminRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
