@@ -3,12 +3,15 @@ package platform.backend.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import platform.backend.model.Pickup;
 import platform.backend.service.PickupService;
@@ -51,5 +54,14 @@ class PickupControllerTest {
                 .andExpect(jsonPath("$.phone").value(pickup.getPhone()))
                 .andExpect(jsonPath("$.address").value(pickup.getAddress()))
                 .andExpect(jsonPath("$.status").value(pickup.getStatus()));
+    }
+
+    @Test
+    @DisplayName("Test to register a pickup with an invalid input")
+    void testRegisterPickupWithInvalidInput() throws Exception {
+        mockMvc.perform(post("/pickup/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(null)))
+                .andExpect(status().isBadRequest());
     }
 }
