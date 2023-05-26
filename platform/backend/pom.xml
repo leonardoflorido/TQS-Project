@@ -127,11 +127,6 @@
             <version>4.6.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>cz.jirutka.spring</groupId>
-            <artifactId>embedmongo-spring</artifactId>
-            <version>RELEASE</version>
-        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
