@@ -1,78 +1,96 @@
 package platform.backend.controller;
 
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import platform.backend.BackendApplication;
 import platform.backend.model.Admin;
+import platform.backend.record.Login;
 import platform.backend.service.AdminService;
+import platform.backend.utils.JsonUtil;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
+@SpringBootTest
+@AutoConfigureDataMongo
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AdminControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private AdminService adminService;
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    private Admin admin;
+
+    @BeforeAll
+    void setUp() {
+        admin = new Admin("Admin", "admin@email.com", "admin");
+    }
+
+    @AfterAll
+    void tearDown() {
+        mongoTemplate.getDb().drop();
+    }
 
     @Test
-    @DisplayName("Test to Register admin")
-    void testAdminRegister() throws Exception {
-        String requestBody = "{\"name\":\"admin\", \"email\":\"admin@admin.com\", \"password\":\"admin\"}";
-
-        Admin admin = new Admin("admin", "admin@admin.com", "admin");
-
-        when(adminService.save(admin)).thenReturn(admin);
-
+    @DisplayName("Test to register an admin with a valid input")
+    @Order(1)
+    void testRegisterAdminWithValidInput() throws Exception {
         mockMvc.perform(post("/admin/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isCreated());
+                        .content(JsonUtil.toJson(admin)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value(admin.getName()))
+                .andExpect(jsonPath("$.email").value(admin.getEmail()));
     }
 
     @Test
-    @DisplayName("Test to Login admin")
-    @Disabled
-    void testAdminLogin() throws Exception {
-
-        String requestBody = "{\"email\":\"admin@admin.com\", \"password\":\"admin\"}";
-
-        Admin admin = new Admin("admin", "admin@admin.com", "admin");
-
-        when(adminService.findByEmail("admin@admin.com")).thenReturn(admin);
-
-        mockMvc.perform(post("/admin/login")
+    @DisplayName("Test to register an admin with an invalid input")
+    @Order(2)
+    void testRegisterAdminWithInvalidInput() throws Exception {
+        mockMvc.perform(post("/admin/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
-                .andExpect(status().isOk());
-
-    }
-
-    @Test
-    @DisplayName("Test to Login admin with wrong credentials")
-    void testAdminLoginWrongPassword() throws Exception {
-
-        String requestBody = "{\"email\":\"admin@admin.com\", \"password\":\"passasasa\"}";
-
-        Admin admin = new Admin("admin", "admin@admin.com", "admin");
-
-        when(adminService.findByEmail("admin@admin.com")).thenReturn(admin);
-
-        mockMvc.perform(post("/admin/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestBody))
+                        .content(JsonUtil.toJson(null)))
                 .andExpect(status().isBadRequest());
+    }
 
+    @Test
+    @DisplayName("Test to login an admin with a valid input")
+    @Order(3)
+    void testLoginAdminWithValidInput() throws Exception {
+        Login login = new Login(admin.getEmail(), admin.getPassword());
+
+        mockMvc.perform(post("/admin/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(login)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(admin.getName()))
+                .andExpect(jsonPath("$.email").value(admin.getEmail()));
+    }
+
+    @Test
+    @DisplayName("Test to login an admin with an invalid input")
+    @Order(4)
+    void testLoginAdminWithInvalidInput() throws Exception {
+        Login login = new Login(admin.getEmail(), "wrong password");
+
+        mockMvc.perform(post("/admin/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(login)))
+                .andExpect(status().isUnauthorized());
     }
 }

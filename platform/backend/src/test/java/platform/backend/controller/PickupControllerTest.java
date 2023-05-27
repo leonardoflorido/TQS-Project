@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class PickupControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -44,6 +45,7 @@ class PickupControllerTest {
 
     @Test
     @DisplayName("Test to register a pickup with a valid input")
+    @Order(1)
     void testRegisterPickupWithValidInput() throws Exception {
         mockMvc.perform(post("/pickup/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -58,6 +60,7 @@ class PickupControllerTest {
 
     @Test
     @DisplayName("Test to register a pickup with an invalid input")
+    @Order(2)
     void testRegisterPickupWithInvalidInput() throws Exception {
         mockMvc.perform(post("/pickup/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -67,6 +70,7 @@ class PickupControllerTest {
 
     @Test
     @DisplayName("Test to update the status of a pickup")
+    @Order(3)
     void testUpdatePickupStatus() throws Exception {
         pickup.setStatus("Partner");
 
@@ -83,19 +87,21 @@ class PickupControllerTest {
 
     @Test
     @DisplayName("Test to login a pickup with an valid input")
-    void testLoginPickupWithInvalidInput() throws Exception {
+    @Order(4)
+    void testLoginPickupWithValidInput() throws Exception {
         Login login = new Login(pickup.getEmail(), pickup.getPassword());
 
         mockMvc.perform(post("/pickup/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(login)))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Test to login a pickup with an invalid input")
-    void testLoginPickupWithValidInput() throws Exception {
-        Login login = new Login(pickup.getEmail(), "wrongPassword");
+    @Order(5)
+    void testLoginPickupWithInvalidInput() throws Exception {
+        Login login = new Login(pickup.getEmail(), "wrong password");
 
         mockMvc.perform(post("/pickup/login")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -49,7 +49,7 @@ public class PickupController {
 
         // Verify if the password is correct
         if (!new BCryptPasswordEncoder().matches(login.password(), pickupFound.getPassword())) {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         // Return the pickup

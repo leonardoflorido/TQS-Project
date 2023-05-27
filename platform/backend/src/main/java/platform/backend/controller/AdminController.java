@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import platform.backend.exception.DetailsException;
 import platform.backend.model.Admin;
+import platform.backend.record.Login;
 import platform.backend.service.AdminService;
 
 @RestController
@@ -24,10 +24,10 @@ public class AdminController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Admin> registerAdmin(@Valid @RequestBody Admin admin) throws DetailsException {
+    public ResponseEntity<Admin> registerAdmin(@Valid @RequestBody Admin admin) {
         // Verify if the admin already exists
         if (adminService.findByEmail(admin.getEmail()) != null) {
-            throw new DetailsException("Email already registered");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         // Encrypt the password
@@ -38,16 +38,16 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Admin> loginAdmin(@Valid @RequestBody Admin admin) throws DetailsException {
+    public ResponseEntity<Admin> loginAdmin(@Valid @RequestBody Login login) {
         // Verify if the admin exists
-        Admin adminFound = adminService.findByEmail(admin.getEmail());
+        Admin adminFound = adminService.findByEmail(login.email());
         if (adminFound == null) {
-            throw new DetailsException("Email does not exist");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // Verify if the password is correct
-        if (!new BCryptPasswordEncoder().matches(admin.getPassword(), adminFound.getPassword())) {
-            throw new DetailsException("Incorrect password");
+        if (!new BCryptPasswordEncoder().matches(login.password(), adminFound.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         // Return the admin
