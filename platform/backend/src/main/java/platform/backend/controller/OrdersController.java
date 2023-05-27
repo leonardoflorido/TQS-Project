@@ -29,6 +29,7 @@ public class OrdersController {
     public ResponseEntity<List<Orders>> getAllOrders() {
         List<Orders> orders = ordersService.findAll();
 
+        // Verify if there are any orders
         if (orders.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -40,6 +41,7 @@ public class OrdersController {
     public ResponseEntity<List<Orders>> getOrdersByPickupId(@PathVariable String id) {
         List<Orders> orders = ordersService.findByPickupId(id);
 
+        // Verify if the pickup has any orders
         if (orders.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -45,7 +45,6 @@ class OrdersControllerTest {
 
         Product macbook = new Product("Macbook pro 14", 2399.00, 1);
         Product iphone = new Product("iPhone 14 pro", 1200.00, 1);
-        Product airpods = new Product("AirPods", 140.00, 3);
 
         orders = new Orders("507f1f77bcf86cd799439011", customer, "Apple", new Date(), List.of(macbook, iphone), "Pending");
     }

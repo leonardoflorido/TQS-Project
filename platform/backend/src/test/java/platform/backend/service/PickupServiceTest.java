@@ -25,18 +25,36 @@ public class PickupServiceTest {
     @InjectMocks
     private PickupService pickupService;
 
+    private Pickup pickup1, pickup2;
+
     @BeforeAll
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        pickup1 = new Pickup("pickup1", "pickup1@gmail.com", "919919191", "pickup1", "Rua do Pickup1", "Pending");
+        pickup2 = new Pickup("pickup2", "pickup2@gmail.com", "929929292", "pickup2", "Rua do Pickup2", "Partener");
+    }
+
+    @Test
+    @DisplayName("Test to save pickup")
+    @Order(1)
+    public void testSave() {
+        // Arrange
+        when(pickupRepository.save(pickup1)).thenReturn(pickup1);
+
+        // Act
+        Pickup result = pickupService.save(pickup1);
+
+        // Assert
+        assertEquals(pickup1, result);
+        verify(pickupRepository, times(1)).save(pickup1);
     }
 
     @Test
     @DisplayName("Test to find all pickups")
+    @Order(1)
     public void testFindAll() {
         // Arrange
-        Pickup p1 = new Pickup("pickup", "pickup@gmail.com", "919919191", "pickup", "Rua do Pickup", "Pending");
-        Pickup p2 = new Pickup("pickup2", "pickup2@gmail.com", "929929292", "pickup2", "Rua do Pickup2", "Partener");
-        List<Pickup> pickups = Arrays.asList(p1, p2);
+        List<Pickup> pickups = Arrays.asList(pickup1, pickup2);
         when(pickupRepository.findAll()).thenReturn(pickups);
 
         // Act
@@ -49,49 +67,34 @@ public class PickupServiceTest {
 
     @Test
     @DisplayName("Test to find pickup by id")
+    @Order(2)
     public void testFindById() {
         // Arrange
-        String id = "123";
-        Pickup pickup = new Pickup("pickup", "pickup@gmail.com", "919919191", "pickup", "Rua do Pickup", "Pending");
-        when(pickupRepository.findById(id)).thenReturn(Optional.of(pickup));
+        String id = "507f1f77bcf86cd799439314";
+        when(pickupRepository.findById(id)).thenReturn(Optional.ofNullable(pickup1));
 
         // Act
         Pickup result = pickupService.findById(id);
 
         // Assert
-        assertEquals(pickup, result);
+        assertEquals(pickup1, result);
         verify(pickupRepository, times(1)).findById(id);
     }
 
     @Test
     @DisplayName("Test to find pickup by email")
+    @Order(3)
     public void testFindByEmail() {
         // Arrange
-        String email = "pickup@gmail.com";
-        Pickup pickup = new Pickup("pickup", "pickup@gmail.com", "919919191", "pickup", "Rua do Pickup", "Pending");
-        when(pickupRepository.findByEmail(email)).thenReturn(pickup);
+        String email = "pickup1@gmail.com";
+        when(pickupRepository.findByEmail(email)).thenReturn(pickup1);
 
         // Act
         Pickup result = pickupService.findByEmail(email);
 
         // Assert
-        assertEquals(pickup, result);
+        assertEquals(pickup1, result);
         verify(pickupRepository, times(1)).findByEmail(email);
-    }
-
-    @Test
-    @DisplayName("Test to save pickup")
-    public void testSave() {
-        // Arrange
-        Pickup pickup = new Pickup("pickup", "pickup@gmail.com", "919919191", "pickup", "Rua do Pickup", "Pending");
-        when(pickupRepository.save(pickup)).thenReturn(pickup);
-
-        // Act
-        Pickup result = pickupService.save(pickup);
-
-        // Assert
-        assertEquals(pickup, result);
-        verify(pickupRepository, times(1)).save(pickup);
     }
 }
 

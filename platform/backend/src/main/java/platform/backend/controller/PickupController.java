@@ -71,6 +71,13 @@ public class PickupController {
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Pickup>> getAllPickups() {
-        return new ResponseEntity<>(pickupService.findAll(), HttpStatus.OK);
+        List<Pickup> pickups = pickupService.findAll();
+
+        // Verify if there are any pickups
+        if (pickups.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(pickups, HttpStatus.OK);
     }
 }
