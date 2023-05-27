@@ -45,7 +45,7 @@ class OrdersControllerTest {
         Product iphone = new Product("iPhone 14 pro", 1200.00, 1);
         Product airpods = new Product("AirPods", 140.00, 3);
 
-        Orders orders = new Orders("2h1hgfgjk1l2kvgh", customer, "Apple", new Date(), List.of(macbook, iphone), "Pending");
+        orders = new Orders("507f1f77bcf86cd799439011", customer, "Apple", new Date(), List.of(macbook, iphone), "Pending");
     }
 
     @AfterAll
