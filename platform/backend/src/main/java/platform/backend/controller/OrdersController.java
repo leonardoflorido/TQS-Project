@@ -29,4 +29,9 @@ public class OrdersController {
     public ResponseEntity<List<Orders>> getAllOrders() {
         return new ResponseEntity<>(ordersService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<List<Orders>> getOrdersByPickupId(@PathVariable String id) {
+        return new ResponseEntity<>(ordersService.findByPickupId(id), HttpStatus.OK);
+    }
 }

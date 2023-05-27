@@ -13,8 +13,8 @@ import platform.backend.model.Pickup;
 import platform.backend.record.Login;
 import platform.backend.utils.JsonUtil;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -107,5 +107,14 @@ class PickupControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(login)))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DisplayName("Test to get all pickups")
+    @Order(6)
+    void testGetAllPickups() throws Exception {
+        mockMvc.perform(get("/pickup/get-all"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
     }
 }

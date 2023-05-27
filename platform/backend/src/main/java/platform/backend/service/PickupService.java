@@ -17,6 +17,10 @@ public class PickupService {
         this.pickupRepository = pickupRepository;
     }
 
+    public Pickup save(Pickup pickup) {
+        return pickupRepository.save(pickup);
+    }
+
     public List<Pickup> findAll() {
         return pickupRepository.findAll();
     }
@@ -29,7 +33,4 @@ public class PickupService {
         return pickupRepository.findByEmail(email);
     }
 
-    public Pickup save(Pickup pickup) {
-        return pickupRepository.save(pickup);
-    }
 }

@@ -10,6 +10,8 @@ import platform.backend.model.Pickup;
 import platform.backend.record.Login;
 import platform.backend.service.PickupService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pickup")
 public class PickupController {
@@ -68,7 +70,7 @@ public class PickupController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<Iterable<Pickup>> getAllPickups() {
+    public ResponseEntity<List<Pickup>> getAllPickups() {
         return new ResponseEntity<>(pickupService.findAll(), HttpStatus.OK);
     }
 }

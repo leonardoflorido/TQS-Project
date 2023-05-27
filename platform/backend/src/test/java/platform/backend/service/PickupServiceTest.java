@@ -1,10 +1,10 @@
 package platform.backend.service;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ActiveProfiles;
 import platform.backend.model.Pickup;
 import platform.backend.repository.PickupRepository;
 
@@ -15,15 +15,18 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PickupServiceTest {
-
     @Mock
     private PickupRepository pickupRepository;
 
     @InjectMocks
     private PickupService pickupService;
 
-    public PickupServiceTest() {
+    @BeforeAll
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
