@@ -17,6 +17,8 @@ import platform.backend.utils.JsonUtil;
 import java.util.Date;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,5 +77,25 @@ class OrdersControllerTest {
                 .andExpect(jsonPath("$.products[1].price").value(1200.00))
                 .andExpect(jsonPath("$.products[1].quantity").value(1))
                 .andExpect(jsonPath("$.status").value("Pending"));
+    }
+
+    @Test
+    @DisplayName("Test to create an order with invalid input")
+    @Order(2)
+    void createOrderWithInvalidInput() throws Exception {
+        mockMvc.perform(post("/orders/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(null)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Test to get all orders")
+    @Order(3)
+    void getAllOrders() throws Exception {
+        mockMvc.perform(get("/orders/get-all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
     }
 }

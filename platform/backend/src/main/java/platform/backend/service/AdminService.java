@@ -14,11 +14,12 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
+    public Admin save(Admin admin) {
+        return adminRepository.save(admin);
+    }
+
     public Admin findByEmail(String email) {
         return adminRepository.findByEmail(email);
     }
 
-    public Admin save(Admin admin) {
-        return adminRepository.save(admin);
-    }
 }

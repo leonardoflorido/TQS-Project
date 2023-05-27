@@ -1,25 +1,27 @@
 package platform.backend.service;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ActiveProfiles;
 import platform.backend.model.Admin;
 import platform.backend.repository.AdminRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-
-public class AdminServiceTest {
-
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class AdminServiceTest {
     @Mock
     private AdminRepository adminRepository;
 
     @InjectMocks
     private AdminService adminService;
 
-    public AdminServiceTest() {
+    @BeforeAll
+    void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 

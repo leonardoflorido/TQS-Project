@@ -28,6 +28,10 @@ public class OrdersService {
         return ordersRepository.findByPickupId(pickupId);
     }
 
+    public List<Orders> findByCustomerEmail(String email) {
+        return ordersRepository.findByCustomerEmail(email);
+    }
+
     public Orders findByEStore(String eStore) {
         return ordersRepository.findByEStore(eStore);
     }
