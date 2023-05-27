@@ -27,11 +27,23 @@ public class OrdersController {
 
     @GetMapping("/get-all")
     public ResponseEntity<List<Orders>> getAllOrders() {
-        return new ResponseEntity<>(ordersService.findAll(), HttpStatus.OK);
+        List<Orders> orders = ordersService.findAll();
+
+        if (orders.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<List<Orders>> getOrdersByPickupId(@PathVariable String id) {
-        return new ResponseEntity<>(ordersService.findByPickupId(id), HttpStatus.OK);
+        List<Orders> orders = ordersService.findByPickupId(id);
+
+        if (orders.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 }

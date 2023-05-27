@@ -58,7 +58,7 @@ class OrdersControllerTest {
     @Test
     @DisplayName("Test to create an order with valid input")
     @Order(1)
-    void createOrderWithValidInput() throws Exception {
+    void testCreateOrderWithValidInput() throws Exception {
         mockMvc.perform(post("/orders/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(orders)))
@@ -82,7 +82,7 @@ class OrdersControllerTest {
     @Test
     @DisplayName("Test to create an order with invalid input")
     @Order(2)
-    void createOrderWithInvalidInput() throws Exception {
+    void testCreateOrderWithInvalidInput() throws Exception {
         mockMvc.perform(post("/orders/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(null)))
@@ -92,10 +92,29 @@ class OrdersControllerTest {
     @Test
     @DisplayName("Test to get all orders")
     @Order(3)
-    void getAllOrders() throws Exception {
+    void testGetAllOrders() throws Exception {
         mockMvc.perform(get("/orders/get-all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    @DisplayName("Test to get orders by pickup id")
+    @Order(4)
+    void testGetOrdersByPickupId() throws Exception {
+        mockMvc.perform(get("/orders/get/507f1f77bcf86cd799439011")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    @DisplayName("Test to get orders by pickup id with invalid input")
+    @Order(5)
+    void testGetOrdersByPickupIdWithInvalidInput() throws Exception {
+        mockMvc.perform(get("/orders/get/null")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
