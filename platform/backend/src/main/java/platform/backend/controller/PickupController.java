@@ -7,9 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import platform.backend.model.Pickup;
+import platform.backend.record.Login;
 import platform.backend.service.PickupService;
-
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/pickup")
@@ -36,20 +35,20 @@ public class PickupController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Pickup> loginPickup(@Valid @RequestBody Pickup pickup) {
+    public ResponseEntity<Pickup> loginPickup(@Valid @RequestBody Login login) {
         // Verify if the pickup exists
-        Pickup pickupFound = pickupService.findByEmail(pickup.getEmail());
+        Pickup pickupFound = pickupService.findByEmail(login.email());
         if (pickupFound == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // Verify if the pickup is a partner
-        if (!Objects.equals(pickupFound.getStatus(), "Partner")) {
+        if (!pickupFound.getStatus().equals("Partner")) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         // Verify if the password is correct
-        if (!new BCryptPasswordEncoder().matches(pickup.getPassword(), pickupFound.getPassword())) {
+        if (!new BCryptPasswordEncoder().matches(login.password(), pickupFound.getPassword())) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
