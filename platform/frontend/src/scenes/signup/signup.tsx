@@ -35,7 +35,7 @@ export default function SignUp() {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		const response = await fetch("http://localhost:8080/acp/register", {
+		const response = await fetch("http://localhost:8080/pickup/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -45,13 +45,14 @@ export default function SignUp() {
 			body: JSON.stringify({
 				name: data.get("Name"),
 				email: data.get("email"),
-				phone: data.get("Phone"),
+				phone: data.get("phone"),
 				password: data.get("password"),
-				address: data.get("Address")
+				address: data.get("Address"),
+				status: "Pending"
 			})
 		});
 		const json = await response.json();
-		console.log(json);
+		json.email ? alert("Success\nPlease Login") : alert("Error");
 	};
 
 	return (

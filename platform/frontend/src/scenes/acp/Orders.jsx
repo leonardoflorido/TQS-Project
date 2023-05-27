@@ -39,19 +39,48 @@ const data = [
 ];
 
 export default function Orders() {
+	const [orders, setOrders] = React.useState([]);
+	React.useEffect(() => {
+		// Fetch pickup orders
+		async function fetchOrders() {
+			const response = await fetch(`http://localhost:8080/order/get_orders?pickupId=${localStorage.getItem("pickupId")}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				}
+			})
+			const data = await response.json();
+			setOrders(data);
+			console.log(data);
+		}
+		fetchOrders();
+	}, []);
+
 	const apiRef = useGridApiRef();
 
 	const initialState = useKeepGroupedColumnsHidden({
 		apiRef,
 		initialState: {
 			rowGrouping: {
-				model: ["eStore", "Date"],
+				model: ["eStore", "Date", "Products"],
 			},
 		},
 	});
 
 	const handleSave = () => {
 		const allRows = apiRef.current.getRowModels();
+		async function updateOrder () {
+			await fetch(`http://localhost:8080/order/update_order`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					orderId: allRows[0].orderId,
+					orderStatus: allRows[0].orderStatus,
+				}),
+			});
+		}
 		const rowsArray = [];
 		allRows.forEach((key) => {
 			rowsArray.push(key);
@@ -71,12 +100,12 @@ export default function Orders() {
 			</Stack>
 			<DataGridPremium
 				initialState={initialState}
-				rows={data}
+				rows={orders}
 				apiRef={apiRef}
 				columns={[
 					{ field: "eStore", headerName: "eStore", width: 150 },
 					{
-						field: "orderStatus",
+						field: "status",
 						headerName: "Order Status",
 						width: 150,
 						editable: true,
@@ -88,10 +117,9 @@ export default function Orders() {
 							"Completed",
 						],
 					},
-					{ field: "address", headerName: "Address", flex: 0.5 },
 					{ field: "date", headerName: "Date", flex: 0.5 },
-					{ field: "orderId", headerName: "Order ID", flex: 0.5 },
-					{ field: "costumer", headerName: "Costumer", flex: 0.5 },
+					{ field: "id", headerName: "Order ID", flex: 0.5 },
+					{ field: "customerId", headerName: "CustomerId", flex: 0.5 },
 				]}
 				columnVisibilityModel={{"address": false, "eStore": false}}
 				autoHeight

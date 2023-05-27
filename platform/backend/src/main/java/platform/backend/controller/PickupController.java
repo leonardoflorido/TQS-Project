@@ -42,13 +42,13 @@ public class PickupController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        // Verify if the pickup is a partner
-        if (!pickupFound.getStatus().equals("Partner")) {
+        // Verify if the password is correct
+        if (!new BCryptPasswordEncoder().matches(login.password(), pickupFound.getPassword())) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        // Verify if the password is correct
-        if (!new BCryptPasswordEncoder().matches(login.password(), pickupFound.getPassword())) {
+        // Verify if the pickup is a partner
+        if (!Objects.equals(pickupFound.getStatus(), "Partner")) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
@@ -65,5 +65,10 @@ public class PickupController {
 
         // Update the pickup
         return new ResponseEntity<>(pickupService.save(pickupFound), HttpStatus.OK);
+    }
+
+    @GetMapping("/get_all")
+    public ResponseEntity<Iterable<Pickup>> getAllPickups() {
+        return ResponseEntity.ok(pickupService.findAll());
     }
 }

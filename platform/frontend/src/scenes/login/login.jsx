@@ -41,8 +41,6 @@ export default function SignIn(props) {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					username: "platform",
-					password: '!:s,d>m52""/f(^/-dSR',
 				},
 				body: JSON.stringify({
 					email: credentials.get("email"),
@@ -53,38 +51,33 @@ export default function SignIn(props) {
 
 			if (response.status === 200) {
 				// set local storage token
-				localStorage.setItem("user", data.username);
+				localStorage.setItem("user", data.name);
 
 				window.location.href = "/admin/dashboard";
 			} else {
 				alert("Login failed");
 			}
 		} else {
-			const response = await fetch("http://localhost:8080/acp/login", {
+			const response = await fetch("http://localhost:8080/pickup/login", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					username: "platform",
-					password: '!:s,d>m52""/f(^/-dSR',
 				},
 				body: JSON.stringify({
 					email: credentials.get("email"),
 					password: credentials.get("password"),
 				}),
 			});
-			const data = await response.json();
 
 			if (response.status === 200) {
-				if (data.status === "Partener") {
-					// set local storage token
-					localStorage.setItem("user", data.username);
+				const data = await response.json();
+				localStorage.setItem("pickupId", data.id);
+				window.location.href = "/acp/dashboard";
 
-					window.location.href = "/acp/dashboard";
-				} else {
-					alert("Your account is still pending");
-				}
+			} else if (response.status === 401) {
+				alert("Your account is still pending");
 			} else {
-				alert("Login failed");
+				alert("Login failed - invalid credentials");
 			}
 		}
 	};

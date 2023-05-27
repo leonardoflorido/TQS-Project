@@ -8,45 +8,25 @@ import {
 import Title from "../../components/Title";
 import { Button, Stack } from "@mui/material";
 
-const data = [
-	{
-		id: 0,
-		company: "Papelaria Gomes",
-		address: "Rua das flores, 123",
-		status: "Partener",
-	},
-	{
-		id: 1,
-		company: "Supermercado Silva",
-		address: "Rua das couves, 123",
-		status: "Partener",
-	},
-	{
-		id: 2,
-		company: "Papelaria Jobim",
-		address: "Rua das Martas, 123",
-		status: "Pending",
-	},
-];
-
 export default function Pickups() {
 	const [rows, setRows] = React.useState([]);
 	const apiRef = useGridApiRef();
 
 	React.useEffect(() => {
 		async function fetchData() {
-			const response = await fetch("http://localhost:8080/acp/get_all", {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-					username: "platform",
-					password: '!:s,d>m52""/f(^/-dSR',
-				},
-			});
+			const response = await fetch(
+				"http://localhost:8080/pickup/get_all",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
 			const data = await response.json();
 			setRows(data);
 		}
-		//fetchData();
+		fetchData();
 	}, []);
 
 	const initialState = useKeepGroupedColumnsHidden({
@@ -54,28 +34,30 @@ export default function Pickups() {
 		initialState: {},
 	});
 
-	const createRandomRow = () => {
-		return {
-			id: rows[rows.length - 1].id + 1,
-			name: "Wite the company name here",
-			address: "Write your address here",
-			status: "Pending",
-		};
-	};
 
 	const handleSave = () => {
+		// Send the rows to the backend
+		function updatePikcup(pickup) {
+			const response = fetch(
+				"http://localhost:8080/pickup/update-status",
+				{
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(pickup),
+				}
+			);
+		}
 		console.log("SAVE ROWS");
 		// Get all rows
 		const allRows = apiRef.current.getRowModels();
-		// Transform the rows map into array of rows map = {key: {row}}
-		const rowsArray = [];
-		allRows.forEach((key) => {
-			rowsArray.push(key);
+		// Transform the rows map into array of rows map = {key, value}
+		allRows.forEach((row) => {
+			// Update the row in the backend
+			updatePikcup(row);
 		});
-		// Send the rows to the backend
-		// TODO
 	};
-
 
 	const handleDeleteRow = () => {
 		// Get selected rows state
@@ -95,9 +77,6 @@ export default function Pickups() {
 		// Update rows state
 	};
 
-	const handleAddRow = () => {
-		setRows((prevRows) => [...prevRows, createRandomRow()]);
-	};
 
 	return (
 		<React.Fragment>
@@ -108,9 +87,6 @@ export default function Pickups() {
 				</Button>
 				<Button size="small" onClick={handleDeleteRow}>
 					Delete row
-				</Button>
-				<Button size="small" onClick={handleAddRow}>
-					Add a row
 				</Button>
 			</Stack>
 			<DataGridPremium
