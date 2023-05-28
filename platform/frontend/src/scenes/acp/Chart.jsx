@@ -10,26 +10,16 @@ import {
 } from "recharts";
 import Title from "../../components/Title";
 
-// Generate Sales Data
-function createData(time, amount) {
-	return { time, amount };
-}
-
-const data = [
-	createData("01-05-2023", 0),
-	createData("04-05-2023", 3),
-	createData("05-05-2023", 6),
-	createData("07-05-2023", 2),
-	createData("10-05-2023", 9),
-];
-
 export default function Chart() {
 	const [data, setData] = React.useState([]);
 	React.useEffect(() => {
-		// Fetch pickup orders
+		if (localStorage.getItem("pickupId") === null) {
+			window.location.href = "/login";
+			return;
+		}
 		async function fetchOrders() {
 			const response = await fetch(
-				`http://localhost:8080/order/get_orders?pickupId=${localStorage.getItem(
+				`http://localhost:8080/orders/get-by-pickup/${localStorage.getItem(
 					"pickupId"
 				)}`,
 				{
@@ -54,21 +44,17 @@ export default function Chart() {
 					acc[date] = 1;
 				}
 				return acc;
-			}
-			, {});
+			}, {});
 			const ordersByDateArray = Object.keys(ordersByDate).map((date) => {
 				return { date, totalOrders: ordersByDate[date] };
-			}
-			);
+			});
 			const sortedOrdersByDateArray = ordersByDateArray.sort((a, b) => {
 				const dateA = new Date(a.date);
 				const dateB = new Date(b.date);
 				return dateA - dateB;
-			}
-			);
+			});
 
 			setData(sortedOrdersByDateArray);
-
 		}
 		fetchOrders();
 	}, []);

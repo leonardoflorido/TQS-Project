@@ -8,50 +8,38 @@ import {
 import { Button, Stack } from "@mui/material";
 import Title from "../../components/Title";
 
-const data = [
-	{
-		id: 0,
-		address: "Rua das flores, 123",
-		date: new Date(2021, 9, 1),
-		eStore: "TQS Store",
-		orderId: 1234,
-		orderStatus: "Delivered, waiting for customer collection",
-		costumer: "Alberto Santos",
-	},
-	{
-		id: 1,
-		address: "Rua das couves, 123",
-		date: new Date(2021, 10, 1),
-		eStore: "TQS Store",
-		orderId: 1235,
-		orderStatus: "Delivered, waiting for customer collection",
-		costumer: "Maria Almeida",
-	},
-	{
-		id: 2,
-		address: "Rua das flores, 123",
-		date: new Date(2021, 9, 1),
-		eStore: "TQS Store",
-		orderId: 1224,
-		orderStatus: "Processing",
-		costumer: "João Silva",
-	},
-];
-
 export default function Orders() {
 	const [orders, setOrders] = React.useState([]);
 	React.useEffect(() => {
+		if (localStorage.getItem("pickupId") === null) {
+			window.location.href = "/login";
+			return;
+		}
 		// Fetch pickup orders
 		async function fetchOrders() {
-			const response = await fetch(`http://localhost:8080/order/get_orders?pickupId=${localStorage.getItem("pickupId")}`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
+			const response = await fetch(
+				`http://localhost:8080/orders/get-by-pickup/${localStorage.getItem(
+					"pickupId"
+				)}`,
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-			})
+			);
 			const data = await response.json();
-			setOrders(data);
-			console.log(data);
+			// get number of products
+			const transformedData = data.map((order) => {
+				const products = order.products;
+				const totalProducts = products.reduce((acc, product) => {
+					return acc + product.quantity;
+				}, 0);
+				return { ...order, totalProducts };
+			});
+			console.log(transformedData);
+			setOrders(transformedData);
+
 		}
 		fetchOrders();
 	}, []);
@@ -62,37 +50,35 @@ export default function Orders() {
 		apiRef,
 		initialState: {
 			rowGrouping: {
-				model: ["eStore", "Date", "Products"],
+				model: ["eStore", "Date", "Order ID"],
 			},
 		},
 	});
 
 	const handleSave = () => {
-		const allRows = apiRef.current.getRowModels();
-		async function updateOrder () {
-			await fetch(`http://localhost:8080/order/update_order`, {
+		async function updateOrder(id, status) {
+			console.log(id);
+			console.log(status);
+			await fetch("http://localhost:8080/orders/update-status", {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					orderId: allRows[0].orderId,
-					orderStatus: allRows[0].orderStatus,
+					id: id,
+					status: status,
 				}),
 			});
 		}
-		const rowsArray = [];
+		const allRows = apiRef.current.getRowModels();
 		allRows.forEach((key) => {
-			rowsArray.push(key);
+			updateOrder(key.id, key.status);
 		});
-
-		// Send the rows to the backend to update the database
-		// TODO
 	};
 
 	return (
 		<React.Fragment>
-			<Title>Recent Orders</Title>
+			<Title>Orders</Title>
 			<Stack direction="row" spacing={1}>
 				<Button size="small" onClick={handleSave}>
 					Save
@@ -119,9 +105,14 @@ export default function Orders() {
 					},
 					{ field: "date", headerName: "Date", flex: 0.5 },
 					{ field: "id", headerName: "Order ID", flex: 0.5 },
-					{ field: "customerId", headerName: "CustomerId", flex: 0.5 },
+					{
+						field: "customer",
+						headerName: "Customer",
+						flex: 0.5,
+					},
+					{ field: "totalProducts", headerName: "Total Products", flex: 0.5 },
 				]}
-				columnVisibilityModel={{"address": false, "eStore": false}}
+				columnVisibilityModel={{ address: false, eStore: false }}
 				autoHeight
 				slots={{ toolbar: GridToolbar }}
 				rowGroupingColumnMode="multiple"

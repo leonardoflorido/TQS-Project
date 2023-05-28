@@ -13,9 +13,13 @@ export default function Pickups() {
 	const apiRef = useGridApiRef();
 
 	React.useEffect(() => {
+		if (localStorage.getItem("user") === null) {
+			window.location.href = "/amdin/login";
+			return;
+		}
 		async function fetchData() {
 			const response = await fetch(
-				"http://localhost:8080/pickup/get_all",
+				"http://localhost:8080/pickup/get-all",
 				{
 					method: "GET",
 					headers: {
@@ -34,22 +38,17 @@ export default function Pickups() {
 		initialState: {},
 	});
 
-
 	const handleSave = () => {
 		// Send the rows to the backend
 		function updatePikcup(pickup) {
-			const response = fetch(
-				"http://localhost:8080/pickup/update-status",
-				{
-					method: "PUT",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(pickup),
-				}
-			);
+			fetch("http://localhost:8080/pickup/update-status", {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(pickup),
+			});
 		}
-		console.log("SAVE ROWS");
 		// Get all rows
 		const allRows = apiRef.current.getRowModels();
 		// Transform the rows map into array of rows map = {key, value}
@@ -76,7 +75,6 @@ export default function Pickups() {
 		});
 		// Update rows state
 	};
-
 
 	return (
 		<React.Fragment>

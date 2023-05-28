@@ -17,9 +17,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { mainListItems } from "./listItems";
 import Chart from "./Chart";
-import Deposits from "./RecentOrders";
 import Orders from "./Orders";
 import Pickups from "./Pickups";
+import RecentOrders from "./RecentOrders";
 
 function Copyright(props) {
 	return (
@@ -88,13 +88,12 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
-
-  React.useEffect(() => {
-    if (localStorage.getItem("user") === null) {
-			window.location.href = "/login";
-      return;
-		} 
-  }, []);
+	React.useEffect(() => {
+		if (localStorage.getItem("user") === null) {
+			window.location.href = "/admin/login";
+			return;
+		}
+	}, []);
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
@@ -180,7 +179,7 @@ function DashboardContent() {
 									<Chart />
 								</Paper>
 							</Grid>
-							{/* Recent Deposits */}
+							{/* Recent Orders */}
 							<Grid item xs={12} md={4} lg={3}>
 								<Paper
 									sx={{
@@ -190,10 +189,10 @@ function DashboardContent() {
 										height: 240,
 									}}
 								>
-									<Deposits />
+									<RecentOrders />
 								</Paper>
 							</Grid>
-							{/* Recent Orders */}
+							{/* Orders */}
 							<Grid item xs={12}>
 								<Paper
 									sx={{

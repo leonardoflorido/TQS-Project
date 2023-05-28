@@ -26,71 +26,38 @@ const data = [
 export default function Chart() {
 	const [data, setData] = React.useState([]);
 
-  async function fetchPickups() {
-    let pickups = [];
-    const response = await fetch(
-      "http://localhost:8080/pickup/get_all",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    for (let i = 0; i < data.length; i++) {
-      pickups.push(data[i].id);
-    }
-    return pickups;
-  }
-
-  async function fetchOrders(pickups) {
-    let orders = [];
-    pickups.forEach(async (id) => {
-      const response = await fetch(
-        `http://localhost:8080/order/get_orders?pickupId=${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      orders.push(data);
-    });
-    return orders;
-  }
-
 	React.useEffect(() => {
-    fetchPickups().then((pickups) => { fetchOrders(pickups) }).then((orders)=> console.log(orders));
-    const orders = [];
-		// Fetch pickups
-		async function mapOrders() {
-			
-      console.log(orders);
-
-			const ordersByDate = orders.reduce((acc, order) => {
-				const date = order.date.split("T")[0];
-				if (acc[date]) {
-					acc[date]++;
-				} else {
-					acc[date] = 1;
+		async function fetchAllOrders() {
+			const response = await fetch(
+				"http://localhost:8080/orders/get-all",
+				{
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+					},
 				}
-				return acc;
-			}, {});
-			const ordersByDateArray = Object.keys(ordersByDate).map((date) => {
-				return { date, totalOrders: ordersByDate[date] };
-			});
-			const sortedOrdersByDateArray = ordersByDateArray.sort((a, b) => {
-				const dateA = new Date(a.date);
-				const dateB = new Date(b.date);
-				return dateA - dateB;
-			});
-			console.log(sortedOrdersByDateArray);
-			setData(sortedOrdersByDateArray);
+			);
+			const orders = await response.json();
+      const ordersByDate = orders.reduce((acc, order) => {
+        const date = order.date.split("T")[0];
+        if (acc[date]) {
+          acc[date]++;
+        } else {
+          acc[date] = 1;
+        }
+        return acc;
+      }, {});
+      const ordersByDateArray = Object.keys(ordersByDate).map((date) => {
+        return { date, totalOrders: ordersByDate[date] };
+      });
+      const sortedOrdersByDateArray = ordersByDateArray.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateA - dateB;
+      });
+      setData(sortedOrdersByDateArray);
 		}
-		mapOrders();
+    fetchAllOrders();
 	}, []);
 
 	const theme = useTheme();
