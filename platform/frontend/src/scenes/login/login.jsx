@@ -12,6 +12,13 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function Copyright(props) {
+	function handleClick(e) {
+		e.preventDefault();
+		if (window.location.pathname === "/admin/login") {
+			window.location.href = "/login";
+		}
+	}
+
 	return (
 		<Typography
 			variant="body2"
@@ -19,9 +26,15 @@ function Copyright(props) {
 			align="center"
 			{...props}
 		>
-			<Link href="/admin/login">
-				Admin?
-			</Link>
+			{window.location.pathname === "/admin/login" ? (
+				<Link href="/admin/login" onClick={handleClick}>
+					Pickup
+				</Link>
+			) : (
+				<Link href="/admin/login">
+					Admin?
+				</Link>
+			)}
 			<div style={{ margin: '40px' }}></div>
 			{"Copyright © "}
 			<Link color="inherit" href="#">
