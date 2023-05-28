@@ -19,6 +19,10 @@ function Copyright(props) {
 			align="center"
 			{...props}
 		>
+			<Link href="/admin/login">
+				Admin?
+			</Link>
+			<div style={{ margin: '40px' }}></div>
 			{"Copyright © "}
 			<Link color="inherit" href="#">
 				TQS
