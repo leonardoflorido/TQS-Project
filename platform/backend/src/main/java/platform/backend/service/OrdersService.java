@@ -35,8 +35,4 @@ public class OrdersService {
     public List<Orders> findByCustomerEmail(String email) {
         return ordersRepository.findByCustomerEmail(email);
     }
-
-    public Orders findByEStore(String eStore) {
-        return ordersRepository.findByEStore(eStore);
-    }
 }

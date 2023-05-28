@@ -13,12 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PickupServiceTest {
+class PickupServiceTest {
     @Mock
     private PickupRepository pickupRepository;
 
@@ -37,7 +38,7 @@ public class PickupServiceTest {
     @Test
     @DisplayName("Test to save pickup")
     @Order(1)
-    public void testSave() {
+    void testSave() {
         // Arrange
         when(pickupRepository.save(pickup1)).thenReturn(pickup1);
 
@@ -51,8 +52,8 @@ public class PickupServiceTest {
 
     @Test
     @DisplayName("Test to find all pickups")
-    @Order(1)
-    public void testFindAll() {
+    @Order(2)
+    void testFindAll() {
         // Arrange
         List<Pickup> pickups = Arrays.asList(pickup1, pickup2);
         when(pickupRepository.findAll()).thenReturn(pickups);
@@ -66,9 +67,9 @@ public class PickupServiceTest {
     }
 
     @Test
-    @DisplayName("Test to find pickup by id")
-    @Order(2)
-    public void testFindById() {
+    @DisplayName("Test to find pickup by valid id")
+    @Order(3)
+    void testFindById() {
         // Arrange
         String id = "507f1f77bcf86cd799439314";
         when(pickupRepository.findById(id)).thenReturn(Optional.ofNullable(pickup1));
@@ -82,9 +83,25 @@ public class PickupServiceTest {
     }
 
     @Test
-    @DisplayName("Test to find pickup by email")
-    @Order(3)
-    public void testFindByEmail() {
+    @DisplayName("Test to find pickup by invalid id")
+    @Order(4)
+    void testFindByIdInvalid() {
+        // Arrange
+        String id = "507f1f77bcf86cd799439314";
+        when(pickupRepository.findById(id)).thenReturn(Optional.empty());
+
+        // Act
+        Pickup result = pickupService.findById(id);
+
+        // Assert
+        assertNull(result);
+        verify(pickupRepository, times(2)).findById(id);
+    }
+
+    @Test
+    @DisplayName("Test to find pickup by valid email")
+    @Order(5)
+    void testFindByEmail() {
         // Arrange
         String email = "pickup1@gmail.com";
         when(pickupRepository.findByEmail(email)).thenReturn(pickup1);
@@ -94,6 +111,22 @@ public class PickupServiceTest {
 
         // Assert
         assertEquals(pickup1, result);
+        verify(pickupRepository, times(1)).findByEmail(email);
+    }
+
+    @Test
+    @DisplayName("Test to find pickup by invalid email")
+    @Order(6)
+    void testFindByEmailInvalid() {
+        // Arrange
+        String email = "invalid";
+        when(pickupRepository.findByEmail(email)).thenReturn(null);
+
+        // Act
+        Pickup result = pickupService.findByEmail(email);
+
+        // Assert
+        assertNull(result);
         verify(pickupRepository, times(1)).findByEmail(email);
     }
 }

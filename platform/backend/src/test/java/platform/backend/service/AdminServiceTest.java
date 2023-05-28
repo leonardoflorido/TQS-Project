@@ -9,6 +9,7 @@ import platform.backend.model.Admin;
 import platform.backend.repository.AdminRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
@@ -32,7 +33,7 @@ class AdminServiceTest {
     @Test
     @DisplayName("Test to save admin")
     @Order(1)
-    public void testSave() {
+    void testSave() {
         // Arrange
         when(adminRepository.save(admin)).thenReturn(admin);
 
@@ -45,9 +46,9 @@ class AdminServiceTest {
     }
 
     @Test
-    @DisplayName("Test to find admin by email")
+    @DisplayName("Test to find admin by a valid email")
     @Order(2)
-    public void testFindByEmail() {
+    void testFindByEmail() {
         // Arrange
         String email = "admin@email.com";
         when(adminRepository.findByEmail(email)).thenReturn(admin);
@@ -57,6 +58,22 @@ class AdminServiceTest {
 
         // Assert
         assertEquals(admin, result);
+        verify(adminRepository, times(1)).findByEmail(email);
+    }
+
+    @Test
+    @DisplayName("Test to find admin by an invalid email")
+    @Order(3)
+    void testFindByEmailInvalid() {
+        // Arrange
+        String email = "invalid";
+        when(adminRepository.findByEmail(email)).thenReturn(null);
+
+        // Act
+        Admin result = adminService.findByEmail(email);
+
+        // Assert
+        assertNull(result);
         verify(adminRepository, times(1)).findByEmail(email);
     }
 }
