@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import platform.backend.model.Orders;
 import platform.backend.record.Customer;
 import platform.backend.record.Product;
+import platform.backend.service.OrdersService;
 import platform.backend.utils.JsonUtil;
 
 import java.util.Date;
@@ -35,6 +36,8 @@ class OrdersControllerTest {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private OrdersService ordersService;
 
     private Orders orders;
 
@@ -120,9 +123,26 @@ class OrdersControllerTest {
     @DisplayName("Test to update order status")
     @Order(6)
     void testUpdateOrderStatus() throws Exception {
-        mockMvc.perform(put("/orders/update-status/")
+        Orders ordersFound = ordersService.findByPickupId("507f1f77bcf86cd799439011").get(0);
+        ordersFound.setStatus("Delivered");
+
+        mockMvc.perform(put("/orders/update-status")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(JsonUtil.toJson("Delivered")))
-                .andExpect(status().isOk());
+                        .content(JsonUtil.toJson(ordersFound)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.customer.name").value("Leonardo"))
+                .andExpect(jsonPath("$.customer.email").value("leonardo@email.com"))
+                .andExpect(jsonPath("$.customer.phone").value("987654321"))
+                .andExpect(jsonPath("$.customer.address").value("Avenida Doutor Lourenço Peixinho, 3810-123, Aveiro"))
+                .andExpect(jsonPath("$.eStore").value("Apple"))
+                .andExpect(jsonPath("$.date").exists())
+                .andExpect(jsonPath("$.products[0].name").value("Macbook pro 14"))
+                .andExpect(jsonPath("$.products[0].price").value(2399.00))
+                .andExpect(jsonPath("$.products[0].quantity").value(1))
+                .andExpect(jsonPath("$.products[1].name").value("iPhone 14 pro"))
+                .andExpect(jsonPath("$.products[1].price").value(1200.00))
+                .andExpect(jsonPath("$.products[1].quantity").value(1))
+                .andExpect(jsonPath("$.status").value("Delivered"));
+        ;
     }
 }
