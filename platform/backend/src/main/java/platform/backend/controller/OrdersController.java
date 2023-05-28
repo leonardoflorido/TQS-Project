@@ -49,7 +49,7 @@ public class OrdersController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/update-status")
     public ResponseEntity<Orders> updateOrders(@Valid @RequestBody Orders orders) {
         Orders ordersFound = ordersService.findById(orders.getId());
 

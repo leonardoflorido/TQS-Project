@@ -18,8 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -115,5 +114,15 @@ class OrdersControllerTest {
         mockMvc.perform(get("/orders/get/null")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Test to update order status")
+    @Order(6)
+    void testUpdateOrderStatus() throws Exception {
+        mockMvc.perform(put("/orders/update-status/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson("Delivered")))
+                .andExpect(status().isOk());
     }
 }
