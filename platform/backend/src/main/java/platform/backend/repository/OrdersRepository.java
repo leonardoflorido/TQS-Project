@@ -14,7 +14,4 @@ public interface OrdersRepository extends MongoRepository<Orders, String> {
 
     @Query("{ 'customer.email' : ?0 }")
     List<Orders> findByCustomerEmail(String email);
-
-    @Query("{ 'eStore' : ?0 }")
-    Orders findByEStore(String eStore);
 }

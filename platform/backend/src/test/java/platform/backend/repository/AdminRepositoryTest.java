@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataMongoTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AdminRepositoryTest {
     @Autowired
     private AdminRepository adminRepository;
