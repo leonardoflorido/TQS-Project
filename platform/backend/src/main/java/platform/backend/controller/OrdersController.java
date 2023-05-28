@@ -59,4 +59,16 @@ public class OrdersController {
         // Update the orders
         return new ResponseEntity<>(ordersService.save(ordersFound), HttpStatus.OK);
     }
+
+    @GetMapping("/get-by-customer/{email}")
+    public ResponseEntity<List<Orders>> getOrdersByCustomerEmail(@PathVariable String email) {
+        List<Orders> orders = ordersService.findByCustomerEmail(email);
+
+        // Verify if the customer has any orders
+        if (orders.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
 }

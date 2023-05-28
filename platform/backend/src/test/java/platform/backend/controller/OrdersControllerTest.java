@@ -143,6 +143,24 @@ class OrdersControllerTest {
                 .andExpect(jsonPath("$.products[1].price").value(1200.00))
                 .andExpect(jsonPath("$.products[1].quantity").value(1))
                 .andExpect(jsonPath("$.status").value("Delivered"));
-        ;
+    }
+
+    @Test
+    @DisplayName("Test to get orders by customer email with valid input")
+    @Order(7)
+    void testGetOrdersByCustomerEmail() throws Exception {
+        mockMvc.perform(get("/orders/get-by-customer/leonardo@email.com")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    @DisplayName("Test to get orders by customer email with invalid input")
+    @Order(8)
+    void testGetOrdersByCustomerEmailWithInvalidInput() throws Exception {
+        mockMvc.perform(get("/orders/get-by-customer/null")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
