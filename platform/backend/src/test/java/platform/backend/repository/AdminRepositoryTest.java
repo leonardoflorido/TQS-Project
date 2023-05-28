@@ -1,45 +1,45 @@
 package platform.backend.repository;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import platform.backend.model.Admin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataMongoTest
-public class AdminRepositoryTest {
-
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class AdminRepositoryTest {
     @Autowired
     private AdminRepository adminRepository;
 
-    @BeforeEach
-    public void setup() {
-        // Clear the repository before each test
-        adminRepository.deleteAll();
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    private Admin admin;
+
+    @BeforeAll
+    void setup() {
+        admin = new Admin("Admin", "admin@email.com", "admin");
     }
 
-    @AfterEach
-    public void cleanup() {
-        // Clear the repository after each test
-        adminRepository.deleteAll();
+    @AfterAll
+    void tearDown() {
+        mongoTemplate.getDb().drop();
     }
 
     @Test
     @DisplayName("Test to find admin by email")
-    public void testFindByEmail() {
+    void testFindByEmail() {
         // Arrange
-        String email = "admin@example.com";
-        String name = "admin";
-        String password = "admin";
-        Admin admin = new Admin(name, email, password);
         adminRepository.save(admin);
 
         // Act
-        Admin result = adminRepository.findByEmail(email);
+        Admin result = adminRepository.findByEmail(admin.getEmail());
 
         // Assert email
         assertEquals(admin.getEmail(), result.getEmail());
