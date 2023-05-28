@@ -8,7 +8,7 @@ export default function Deposits() {
 		// Fetch pickup orders
 		async function fetchOrders() {
 			const response = await fetch(
-				`http://localhost:8080/order/get_orders?pickupId=${localStorage.getItem(
+				`http://localhost:8080/orders/get-by-pickup/${localStorage.getItem(
 					"pickupId"
 				)}`,
 				{
@@ -18,13 +18,12 @@ export default function Deposits() {
 					},
 				}
 			);
-			const data = await response.json();
+			const orders = await response.json();
 			// Map data to return an array of objects with the date and the number of orders
 			// Date should only consider the day, month and year
 			// Example: {date: "2023-10-01", totalOrders: 2}
 			// The final array should be sorted by date
 
-			const orders = data;
 			const ordersByDate = orders.reduce((acc, order) => {
 				const date = order.date.split("T")[0];
 				if (acc[date]) {
