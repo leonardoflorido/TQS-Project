@@ -37,7 +37,7 @@ public class OrdersController {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/get-by-pickup/{id}")
     public ResponseEntity<List<Orders>> getOrdersByPickupId(@PathVariable String id) {
         List<Orders> orders = ordersService.findByPickupId(id);
 

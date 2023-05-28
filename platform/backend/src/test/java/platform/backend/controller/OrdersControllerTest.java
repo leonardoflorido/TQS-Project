@@ -104,7 +104,7 @@ class OrdersControllerTest {
     @DisplayName("Test to get orders by pickup id")
     @Order(4)
     void testGetOrdersByPickupId() throws Exception {
-        mockMvc.perform(get("/orders/get/507f1f77bcf86cd799439011")
+        mockMvc.perform(get("/orders/get-by-pickup/507f1f77bcf86cd799439011")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
@@ -114,7 +114,7 @@ class OrdersControllerTest {
     @DisplayName("Test to get orders by pickup id with invalid input")
     @Order(5)
     void testGetOrdersByPickupIdWithInvalidInput() throws Exception {
-        mockMvc.perform(get("/orders/get/null")
+        mockMvc.perform(get("/orders/get-by-pickup/null")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
