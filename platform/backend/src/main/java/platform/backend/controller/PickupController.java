@@ -44,6 +44,8 @@ public class PickupController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+        System.out.println(pickupFound.getStatus());
+
         // Verify if the pickup is a partner
         if (!pickupFound.getStatus().equals("Partner")) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
