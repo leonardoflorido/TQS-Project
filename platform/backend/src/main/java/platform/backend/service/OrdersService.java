@@ -24,6 +24,10 @@ public class OrdersService {
         return ordersRepository.findAll();
     }
 
+    public Orders findById(String id) {
+        return ordersRepository.findById(id).orElse(null);
+    }
+
     public List<Orders> findByPickupId(String pickupId) {
         return ordersRepository.findByPickupId(pickupId);
     }

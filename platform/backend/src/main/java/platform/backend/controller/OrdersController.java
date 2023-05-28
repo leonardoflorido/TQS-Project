@@ -48,4 +48,15 @@ public class OrdersController {
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+    @PutMapping
+    public ResponseEntity<Orders> updateOrders(@Valid @RequestBody Orders orders) {
+        Orders ordersFound = ordersService.findById(orders.getId());
+
+        // Change the status of the orders
+        ordersFound.setStatus(orders.getStatus());
+
+        // Update the orders
+        return new ResponseEntity<>(ordersService.save(ordersFound), HttpStatus.OK);
+    }
 }
