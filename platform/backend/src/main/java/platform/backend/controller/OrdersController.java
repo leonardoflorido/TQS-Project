@@ -10,6 +10,9 @@ import platform.backend.service.OrdersService;
 
 import java.util.List;
 
+import platform.backend.dto.OrdersDTO;
+
+
 @RestController
 @RequestMapping("/orders")
 public class OrdersController {
@@ -21,8 +24,18 @@ public class OrdersController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Orders> createOrders(@Valid @RequestBody Orders orders) {
-        return new ResponseEntity<>(ordersService.save(orders), HttpStatus.CREATED);
+    public ResponseEntity<Orders> createOrders(@Valid @RequestBody OrdersDTO ordersDTO) {
+        Customer customer = ordersDTO.getCustomer();
+        String eStore = ordersDTO.geteStore();
+        Date date = ordersDTO.getDate();
+        List<Product> products = ordersDTO.getProducts();
+        String status = ordersDTO.getStatus();
+    
+        Orders orders = new Orders(ordersDTO.getPickupId(), customer, eStore, date, products, status);
+    
+        Orders createdOrders = ordersService.save(orders);
+    
+        return new ResponseEntity<>(createdOrders, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all")
