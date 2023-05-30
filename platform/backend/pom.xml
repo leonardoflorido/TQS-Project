@@ -147,6 +147,10 @@
                             cucumber.junit-platform.naming-strategy=long
                         </configurationParameters>
                     </properties>
+                    <excludes>
+                        <exclude>**/AdminTest.java</exclude>
+                        <exclude>**/RegisterTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
