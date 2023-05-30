@@ -1,28 +1,27 @@
-package platform.backend.pojo;
+package platform.backend.dto;
 
-import nonapi.io.github.classgraph.json.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.validation.constraints.NotNull;
 import platform.backend.record.Customer;
 import platform.backend.record.Product;
 
 import java.util.Date;
 import java.util.List;
 
-@Document("Orders")
-public class OrdersPojo {
+public class OrdersDTO {
     private String pickupId;
+    @NotNull
     private Customer customer;
     private String eStore;
+    @NotNull
     private Date date;
+    @NotNull
     private List<Product> products;
-    @Id
-    private String id;
     private String status;
 
-    public OrdersPojo() {
+    public OrdersDTO() {
     }
 
-    public OrdersPojo(String pickupId, Customer customer, String eStore, Date date, List<Product> products, String status) {
+    public OrdersDTO(String pickupId, Customer customer, String eStore, Date date, List<Product> products, String status) {
         this.pickupId = pickupId;
         this.customer = customer;
         this.eStore = eStore;
@@ -69,14 +68,6 @@ public class OrdersPojo {
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getStatus() {

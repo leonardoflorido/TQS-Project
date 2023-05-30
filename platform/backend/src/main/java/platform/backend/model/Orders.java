@@ -11,14 +11,17 @@ import java.util.List;
 
 @Document("Orders")
 public class Orders {
-    private final String pickupId;
-    private final Customer customer;
-    private final String eStore;
-    private final Date date;
-    private final List<Product> products;
+    private String pickupId;
+    private Customer customer;
+    private String eStore;
+    private Date date;
+    private List<Product> products;
     @Id
     private String id;
     private String status;
+
+    public Orders() {
+    }
 
     public Orders(String pickupId, Customer customer, String eStore, Date date, List<Product> products, String status) {
         this.pickupId = pickupId;
@@ -33,20 +36,40 @@ public class Orders {
         return pickupId;
     }
 
+    public void setPickupId(String pickupId) {
+        this.pickupId = pickupId;
+    }
+
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String geteStore() {
         return eStore;
     }
 
+    public void seteStore(String eStore) {
+        this.eStore = eStore;
+    }
+
     public Date getDate() {
         return date;
     }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public List<Product> getProducts() {
         return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public String getId() {

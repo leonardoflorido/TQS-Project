@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import platform.backend.dto.OrdersDTO;
 import platform.backend.model.Orders;
-import platform.backend.pojo.OrdersPojo;
 import platform.backend.service.OrdersService;
 
 import java.util.List;
 
+import static platform.backend.mapper.OrdersMapper.mapDTOToOrders;
+import static platform.backend.mapper.OrdersMapper.mapOrdersToDTO;
 
 
 @RestController
@@ -24,11 +26,11 @@ public class OrdersController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Orders> createOrders(@Valid @RequestBody OrdersPojo orders) {
-        // Convert the orders pojo to orders model
-        Orders ordersModel = new Orders(orders.getPickupId(), orders.getCustomer(), orders.geteStore(), orders.getDate(), orders.getProducts(), orders.getStatus());
-
-        return new ResponseEntity<>(ordersService.save(ordersModel), HttpStatus.CREATED);
+    public ResponseEntity<OrdersDTO> createOrders(@Valid @RequestBody OrdersDTO ordersDTO) {
+        Orders orders = mapDTOToOrders(ordersDTO);
+        Orders savedOrders = ordersService.save(orders);
+        OrdersDTO savedOrdersDTO = mapOrdersToDTO(savedOrders);
+        return new ResponseEntity<>(savedOrdersDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all")
@@ -56,7 +58,7 @@ public class OrdersController {
     }
 
     @PutMapping("/update-status")
-    public ResponseEntity<Orders> updateOrders(@Valid @RequestBody OrdersPojo orders) {
+    public ResponseEntity<Orders> updateOrders(@Valid @RequestBody Orders orders) {
         Orders ordersFound = ordersService.findById(orders.getId());
 
         // Change the status of the orders
