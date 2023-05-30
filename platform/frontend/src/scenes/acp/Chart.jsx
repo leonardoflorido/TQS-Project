@@ -29,6 +29,9 @@ export default function Chart() {
 					},
 				}
 			);
+			if (response.status !== 200) {
+				return;
+			}
 			const data = await response.json();
 			// Map data to return an array of objects with the date and the number of orders
 			// Date should only consider the day, month and year

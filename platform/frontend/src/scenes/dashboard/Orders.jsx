@@ -20,6 +20,9 @@ export default function Orders() {
 					},
 				}
 			);
+			if (response.status !== 200) {
+				return;
+			}
 			const orders = await response.json();
 
 			const res = await fetch("http://localhost:8080/pickup/get-all", {

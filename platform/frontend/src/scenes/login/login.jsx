@@ -64,10 +64,11 @@ export default function SignIn(props) {
 					password: credentials.get("password"),
 				}),
 			});
-			const data = await response.json();
+			
 
 			if (response.status === 200) {
 				// set local storage token
+				const data = await response.json();
 				localStorage.setItem("user", data.name);
 
 				window.location.href = "/admin/dashboard";

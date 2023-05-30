@@ -28,6 +28,9 @@ export default function Orders() {
 					},
 				}
 			);
+			if (response.status !== 200) {
+				return;
+			}
 			const data = await response.json();
 			// get number of products
 			const transformedData = data.map((order) => {
