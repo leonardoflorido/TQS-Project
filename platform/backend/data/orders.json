@@ -20,7 +20,8 @@
         "price": 999,
         "quantity": 1
       }
-    ]
+    ],
+    "status": "Pending"
   },
   {
     "pickupId": "6475bf8cd67d7552435b289e",
@@ -43,7 +44,8 @@
         "price": 1299,
         "quantity": 1
       }
-    ]
+    ],
+    "status": "Almost ready"
   },
   {
     "pickupId": "6475bf8cd67d7552435b289f",
@@ -66,7 +68,8 @@
         "price": 199,
         "quantity": 1
       }
-    ]
+    ],
+    "status": "Ready"
   },
   {
     "pickupId": "6475bf8cd67d7552435b28a0",
@@ -89,6 +92,7 @@
         "price": 159,
         "quantity": 2
       }
-    ]
+    ],
+    "status": "Pending"
   }
 ]
