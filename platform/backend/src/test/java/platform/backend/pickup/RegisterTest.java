@@ -12,6 +12,5 @@ import static io.cucumber.core.options.Constants.PLUGIN_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("pickup")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@Disabled
 public class RegisterTest {
 }

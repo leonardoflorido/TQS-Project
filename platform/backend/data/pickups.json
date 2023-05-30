@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Papelaria",
+    "email": "papelaria@email.com",
+    "phone": "987654321",
+    "address": "Rua das Papelarias, 123",
+    "password": "papelaria",
+    "status": "Pending"
+  },
+  {
+    "name": "Restaurant XYZ",
+    "email": "restaurantxyz@email.com",
+    "phone": "123456789",
+    "address": "123 Main Street",
+    "password": "restaurantxyz",
+    "status": "Pending"
+  },
+  {
+    "name": "Fitness Studio",
+    "email": "fitnessstudio@email.com",
+    "phone": "987654321",
+    "address": "123 Fitness Avenue",
+    "password": "fitnesstudio",
+    "status": "Partner"
+  },
+  {
+    "name": "Tech Store",
+    "email": "techstore@email.com",
+    "phone": "555-123-4567",
+    "address": "456 Tech Road",
+    "password": "techstore",
+    "status": "Pending"
+  }
+]

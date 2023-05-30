@@ -82,4 +82,22 @@ public class PickupController {
 
         return new ResponseEntity<>(pickups, HttpStatus.OK);
     }
+
+    @PostMapping("/register-many")
+    public ResponseEntity<List<Pickup>> registerManyPickups(@Valid @RequestBody List<Pickup> pickups) {
+        // Verify if the pickups already exist
+        for (Pickup pickup : pickups) {
+            if (pickupService.findByEmail(pickup.getEmail()) != null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        // Encrypt the passwords
+        for (Pickup pickup : pickups) {
+            pickup.setPassword(new BCryptPasswordEncoder().encode(pickup.getPassword()));
+        }
+
+        // Save the pickups
+        return new ResponseEntity<>(pickupService.saveAll(pickups), HttpStatus.CREATED);
+    }
 }

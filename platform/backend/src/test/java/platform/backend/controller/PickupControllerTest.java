@@ -13,6 +13,8 @@ import platform.backend.model.Pickup;
 import platform.backend.record.Login;
 import platform.backend.utils.JsonUtil;
 
+import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -116,5 +118,30 @@ class PickupControllerTest {
         mockMvc.perform(get("/pickup/get-all"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+    @Test
+    @DisplayName("Test to register multiple valid pickups")
+    @Order(7)
+    void testRegisterMultipleValidPickups() throws Exception {
+        Pickup pickup1 = new Pickup("Papelaria", "papelaria@email.com", "987654321", "papelaria", "Rua das Papelarias, 123", "Pending");
+        Pickup pickup2 = new Pickup("Restaurant XYZ", "restaurantxyz@email.com", "123456789", "restaurantxyz", "123 Main Street", "Pending");
+
+        List<Pickup> pickups = List.of(pickup1, pickup2);
+
+        mockMvc.perform(post("/pickup/register-many")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(pickups)))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("Test to register multiple invalid pickups")
+    @Order(8)
+    void testRegisterMultipleInvalidPickups() throws Exception {
+        mockMvc.perform(post("/pickup/register-many")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(null)))
+                .andExpect(status().isBadRequest());
     }
 }

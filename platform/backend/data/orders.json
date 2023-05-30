@@ -1,0 +1,94 @@
+[
+  {
+    "pickupId": "6475bf8cd67d7552435b289d",
+    "customer": {
+      "name": "Leonardo",
+      "email": "leonardo@email.com",
+      "phone": "987654321",
+      "address": "Rua do Leonardo, 2131-122, Lisboa"
+    },
+    "eStore": "Apple",
+    "date": "2021-01-01",
+    "products": [
+      {
+        "name": "Macbook Pro 14",
+        "price": 1999,
+        "quantity": 1
+      },
+      {
+        "name": "iPhone 12 Pro",
+        "price": 999,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "pickupId": "6475bf8cd67d7552435b289e",
+    "customer": {
+      "name": "Sophie",
+      "email": "sophie@email.com",
+      "phone": "987654321",
+      "address": "1234 Sophie Lane, New York"
+    },
+    "eStore": "Tech Store",
+    "date": "2023-06-01",
+    "products": [
+      {
+        "name": "Smartphone",
+        "price": 799,
+        "quantity": 3
+      },
+      {
+        "name": "Laptop",
+        "price": 1299,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "pickupId": "6475bf8cd67d7552435b289f",
+    "customer": {
+      "name": "Michael",
+      "email": "michael@email.com",
+      "phone": "555-123-4567",
+      "address": "456 Michael Street, San Francisco"
+    },
+    "eStore": "Tech Store",
+    "date": "2023-06-02",
+    "products": [
+      {
+        "name": "Wireless Earphones",
+        "price": 99,
+        "quantity": 1
+      },
+      {
+        "name": "Smartwatch",
+        "price": 199,
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "pickupId": "6475bf8cd67d7552435b28a0",
+    "customer": {
+      "name": "Emily",
+      "email": "emily@email.com",
+      "phone": "123456789",
+      "address": "789 Emily Avenue, London"
+    },
+    "eStore": "Apple",
+    "date": "2023-06-03",
+    "products": [
+      {
+        "name": "iPad",
+        "price": 599,
+        "quantity": 1
+      },
+      {
+        "name": "AirPods",
+        "price": 159,
+        "quantity": 2
+      }
+    ]
+  }
+]

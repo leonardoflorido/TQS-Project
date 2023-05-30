@@ -35,4 +35,8 @@ public class OrdersService {
     public List<Orders> findByCustomerEmail(String email) {
         return ordersRepository.findByCustomerEmail(email);
     }
+
+    public List<Orders> saveAll(List<Orders> orders) {
+        return ordersRepository.saveAll(orders);
+    }
 }

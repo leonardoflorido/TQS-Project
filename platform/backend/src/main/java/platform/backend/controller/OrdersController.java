@@ -71,4 +71,9 @@ public class OrdersController {
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
+    @PostMapping("/create-many")
+    public ResponseEntity<List<Orders>> createManyOrders(@Valid @RequestBody List<Orders> orders) {
+        return new ResponseEntity<>(ordersService.saveAll(orders), HttpStatus.CREATED);
+    }
 }

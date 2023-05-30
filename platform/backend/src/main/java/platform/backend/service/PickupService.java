@@ -33,4 +33,7 @@ public class PickupService {
         return pickupRepository.findByEmail(email);
     }
 
+    public List<Pickup> saveAll(List<Pickup> pickups) {
+        return pickupRepository.saveAll(pickups);
+    }
 }
