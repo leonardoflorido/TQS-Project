@@ -6,9 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import platform.backend.model.Orders;
+import platform.backend.pojo.OrdersPOJO;
 import platform.backend.service.OrdersService;
 
 import java.util.List;
+
+import static platform.backend.mapper.OrdersMapper.mapPOJOToOrders;
 
 
 @RestController
@@ -22,7 +25,9 @@ public class OrdersController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Orders> createOrders(@Valid @RequestBody Orders orders) {
+    public ResponseEntity<Orders> createOrders(@Valid @RequestBody OrdersPOJO ordersPOJO) {
+        Orders orders = mapPOJOToOrders(ordersPOJO);
+
         return new ResponseEntity<>(ordersService.save(orders), HttpStatus.CREATED);
     }
 
