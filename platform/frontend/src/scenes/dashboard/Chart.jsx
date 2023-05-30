@@ -37,6 +37,9 @@ export default function Chart() {
 					},
 				}
 			);
+			if (response.status !== 200) {
+				return;
+			}
 			const orders = await response.json();
       const ordersByDate = orders.reduce((acc, order) => {
         const date = order.date.split("T")[0];
