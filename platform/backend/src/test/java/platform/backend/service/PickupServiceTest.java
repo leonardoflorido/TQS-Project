@@ -129,5 +129,37 @@ class PickupServiceTest {
         assertNull(result);
         verify(pickupRepository, times(1)).findByEmail(email);
     }
+
+    @Test
+    @DisplayName("Test to save multiple pickups with valid input")
+    @Order(7)
+    void testSaveAll() {
+        // Arrange
+        List<Pickup> pickups = Arrays.asList(pickup1, pickup2);
+        when(pickupRepository.saveAll(pickups)).thenReturn(pickups);
+
+        // Act
+        List<Pickup> result = pickupService.saveAll(pickups);
+
+        // Assert
+        assertEquals(pickups, result);
+        verify(pickupRepository, times(1)).saveAll(pickups);
+    }
+
+    @Test
+    @DisplayName("Test to save multiple pickups with invalid input")
+    @Order(8)
+    void testSaveAllInvalid() {
+        // Arrange
+        List<Pickup> pickups = Arrays.asList(pickup1, pickup2);
+        when(pickupRepository.saveAll(pickups)).thenReturn(null);
+
+        // Act
+        List<Pickup> result = pickupService.saveAll(pickups);
+
+        // Assert
+        assertNull(result);
+        verify(pickupRepository, times(2)).saveAll(pickups);
+    }
 }
 

@@ -163,4 +163,25 @@ class OrdersControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @DisplayName("Test to create multiple orders with valid input")
+    @Order(9)
+    void testCreateMultipleOrdersWithValidInput() throws Exception {
+        mockMvc.perform(post("/orders/create-many")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(List.of(orders, orders))))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    @DisplayName("Test to create multiple orders with invalid input")
+    @Order(10)
+    void testCreateMultipleOrdersWithInvalidInput() throws Exception {
+        mockMvc.perform(post("/orders/create-many")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtil.toJson(null)))
+                .andExpect(status().isBadRequest());
+    }
 }

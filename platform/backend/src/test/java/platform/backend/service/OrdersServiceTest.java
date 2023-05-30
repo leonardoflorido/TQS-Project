@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
@@ -97,7 +98,7 @@ class OrdersServiceTest {
         Orders result = ordersService.findById(id);
 
         // Assert
-        Assertions.assertNull(result);
+        assertNull(result);
         verify(ordersRepository, times(2)).findById(id);
     }
 
@@ -163,5 +164,35 @@ class OrdersServiceTest {
         // Assert
         Assertions.assertEquals(List.of(), result);
         verify(ordersRepository, times(1)).findByCustomerEmail(email);
+    }
+
+    @Test
+    @DisplayName("Test to save multiple orders with valid input")
+    @Order(9)
+    void testSaveAll() {
+        // Arrange
+        when(ordersRepository.saveAll(List.of(orders, orders))).thenReturn(List.of(orders, orders));
+
+        // Act
+        List<Orders> result = ordersService.saveAll(List.of(orders, orders));
+
+        // Assert
+        Assertions.assertEquals(List.of(orders, orders), result);
+        verify(ordersRepository, times(1)).saveAll(List.of(orders, orders));
+    }
+
+    @Test
+    @DisplayName("Test to save multiple orders with invalid input")
+    @Order(10)
+    void testSaveAllInvalid() {
+        // Arrange
+        when(ordersRepository.saveAll(List.of())).thenReturn(null);
+
+        // Act
+        List<Orders> result = ordersService.saveAll(List.of());
+
+        // Assert
+        assertNull(result);
+        verify(ordersRepository, times(1)).saveAll(List.of());
     }
 }

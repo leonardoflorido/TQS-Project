@@ -132,7 +132,9 @@ class PickupControllerTest {
         mockMvc.perform(post("/pickup/register-many")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(pickups)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$", hasSize(2)));
+        ;
     }
 
     @Test

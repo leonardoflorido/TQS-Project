@@ -1,6 +1,5 @@
 package platform.backend.pickup;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
