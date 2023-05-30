@@ -1,15 +1,12 @@
 package platform.backend.pojo;
 
 public class PickupPOJO {
+    private final String phone;
     private String name;
     private String email;
-    private String phone;
     private String address;
     private String password;
     private String status;
-
-    public PickupPOJO() {
-    }
 
     public PickupPOJO(String name, String email, String phone, String password, String address, String status) {
         this.name = name;
@@ -38,10 +35,6 @@ public class PickupPOJO {
 
     public String getPhone() {
         return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getAddress() {

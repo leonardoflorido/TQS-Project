@@ -4,6 +4,7 @@ import platform.backend.model.Pickup;
 import platform.backend.pojo.PickupPOJO;
 
 public class PickupMapper {
+
     public static Pickup mapPOJOToPickup(PickupPOJO pickupPOJO) {
         Pickup pickup = new Pickup();
         pickup.setName(pickupPOJO.getName());
