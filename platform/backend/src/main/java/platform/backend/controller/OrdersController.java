@@ -10,7 +10,7 @@ import platform.backend.service.OrdersService;
 
 import java.util.List;
 
-import platform.backend.dto.OrdersDTO;
+import platform.backend.controller.dto.OrdersDTO;
 
 
 @RestController
