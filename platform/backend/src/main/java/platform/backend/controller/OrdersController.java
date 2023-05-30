@@ -5,14 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import platform.backend.dto.OrdersDTO;
 import platform.backend.model.Orders;
 import platform.backend.service.OrdersService;
 
 import java.util.List;
-
-import static platform.backend.mapper.OrdersMapper.mapDTOToOrders;
-import static platform.backend.mapper.OrdersMapper.mapOrdersToDTO;
 
 
 @RestController
@@ -26,11 +22,8 @@ public class OrdersController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OrdersDTO> createOrders(@Valid @RequestBody OrdersDTO ordersDTO) {
-        Orders orders = mapDTOToOrders(ordersDTO);
-        Orders savedOrders = ordersService.save(orders);
-        OrdersDTO savedOrdersDTO = mapOrdersToDTO(savedOrders);
-        return new ResponseEntity<>(savedOrdersDTO, HttpStatus.CREATED);
+    public ResponseEntity<Orders> createOrders(@Valid @RequestBody Orders orders) {
+        return new ResponseEntity<>(ordersService.save(orders), HttpStatus.CREATED);
     }
 
     @GetMapping("/get-all")
