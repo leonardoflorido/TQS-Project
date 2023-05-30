@@ -27,6 +27,9 @@ export default function Pickups() {
 					},
 				}
 			);
+			if (response.status !== 200) {
+				return;
+			}
 			const data = await response.json();
 			setRows(data);
 		}
