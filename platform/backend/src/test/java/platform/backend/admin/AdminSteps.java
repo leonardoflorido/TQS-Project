@@ -87,6 +87,9 @@ public class AdminSteps {
             Actions builder = new Actions(driver);
             builder.doubleClick(element).perform();
         }
+        // delete the text
+        driver.findElement(By.cssSelector(".MuiInputBase-input")).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(By.cssSelector(".MuiInputBase-input")).sendKeys(Keys.DELETE);
         driver.findElement(By.cssSelector(".MuiInputBase-input")).sendKeys(status);
         driver.findElement(By.cssSelector(".MuiStack-root > .MuiButtonBase-root:nth-child(1)")).click();
     }
