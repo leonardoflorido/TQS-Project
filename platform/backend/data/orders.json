@@ -21,7 +21,7 @@
         "quantity": 1
       }
     ],
-    "status": "Pending"
+    "status": "Processing"
   },
   {
     "pickupId": "6475bf8cd67d7552435b289e",
@@ -45,7 +45,7 @@
         "quantity": 1
       }
     ],
-    "status": "Almost ready"
+    "status": "Completed"
   },
   {
     "pickupId": "6475bf8cd67d7552435b289f",
@@ -69,7 +69,7 @@
         "quantity": 1
       }
     ],
-    "status": "Ready"
+    "status": "Waiting for collection"
   },
   {
     "pickupId": "6475bf8cd67d7552435b28a0",
@@ -93,6 +93,6 @@
         "quantity": 2
       }
     ],
-    "status": "Pending"
+    "status": "In Transit"
   }
 ]
