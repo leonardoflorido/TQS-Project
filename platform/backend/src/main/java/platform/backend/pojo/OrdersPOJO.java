@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OrdersPOJO {
+    private String id;
     private String pickupId;
     private Customer customer;
     private String eStore;
@@ -17,13 +18,22 @@ public class OrdersPOJO {
     public OrdersPOJO() {
     }
 
-    public OrdersPOJO(String pickupId, Customer customer, String eStore, Date date, List<Product> products, String status) {
+    public OrdersPOJO(String id, String pickupId, Customer customer, String eStore, Date date, List<Product> products, String status) {
+        this.id = id;
         this.pickupId = pickupId;
         this.customer = customer;
         this.eStore = eStore;
         this.date = date;
         this.products = products;
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPickupId() {

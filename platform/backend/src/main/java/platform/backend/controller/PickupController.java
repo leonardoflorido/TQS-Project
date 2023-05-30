@@ -7,10 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import platform.backend.model.Pickup;
+import platform.backend.pojo.PickupPOJO;
 import platform.backend.record.Login;
 import platform.backend.service.PickupService;
 
 import java.util.List;
+
+import static platform.backend.mapper.PickupMapper.mapPOJOToPickup;
 
 @RestController
 @RequestMapping("/pickup")
@@ -23,7 +26,8 @@ public class PickupController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Pickup> registerPickup(@Valid @RequestBody Pickup pickup) {
+    public ResponseEntity<Pickup> registerPickup(@Valid @RequestBody PickupPOJO pickupPOJO) {
+        Pickup pickup = mapPOJOToPickup(pickupPOJO);
         // Verify if the pickup already exists
         if (pickupService.findByEmail(pickup.getEmail()) != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -61,11 +65,11 @@ public class PickupController {
     }
 
     @PutMapping("/update-status")
-    public ResponseEntity<Pickup> updatePickupStatus(@Valid @RequestBody Pickup pickup) {
-        Pickup pickupFound = pickupService.findByEmail(pickup.getEmail());
+    public ResponseEntity<Pickup> updatePickupStatus(@Valid @RequestBody PickupPOJO pickupPOJO) {
+        Pickup pickupFound = pickupService.findByEmail(pickupPOJO.getEmail());
 
         // Change the pickup's status
-        pickupFound.setStatus(pickup.getStatus());
+        pickupFound.setStatus(pickupPOJO.getStatus());
 
         // Update the pickup
         return new ResponseEntity<>(pickupService.save(pickupFound), HttpStatus.OK);

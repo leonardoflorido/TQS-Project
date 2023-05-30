@@ -1,33 +1,23 @@
-package platform.backend.model;
+package platform.backend.pojo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document("Pickup")
-public class Pickup {
+public class PickupPOJO {
     private String name;
     private String email;
     private String phone;
     private String address;
     private String password;
-    @Id
-    private String id;
     private String status;
 
-    public Pickup() {
+    public PickupPOJO() {
     }
 
-    public Pickup(String name, String email, String phone, String password, String address, String status) {
+    public PickupPOJO(String name, String email, String phone, String password, String address, String status) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
         this.address = address;
         this.status = status;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {
@@ -54,20 +44,20 @@ public class Pickup {
         this.phone = phone;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStatus() {
@@ -78,3 +68,4 @@ public class Pickup {
         this.status = status;
     }
 }
+

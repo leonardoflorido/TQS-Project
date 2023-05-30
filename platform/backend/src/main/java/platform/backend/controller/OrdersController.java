@@ -56,11 +56,11 @@ public class OrdersController {
     }
 
     @PutMapping("/update-status")
-    public ResponseEntity<Orders> updateOrders(@Valid @RequestBody Orders orders) {
-        Orders ordersFound = ordersService.findById(orders.getId());
+    public ResponseEntity<Orders> updateOrders(@Valid @RequestBody OrdersPOJO ordersPOJO) {
+        Orders ordersFound = ordersService.findById(ordersPOJO.getId());
 
         // Change the status of the orders
-        ordersFound.setStatus(orders.getStatus());
+        ordersFound.setStatus(ordersPOJO.getStatus());
 
         // Update the orders
         return new ResponseEntity<>(ordersService.save(ordersFound), HttpStatus.OK);
