@@ -34,4 +34,26 @@ input[type="text"] {
 input[type="radio"] {
     margin-right: 10px;
 }
-  
+
+.button-continue {
+    border-left: 1px solid #e1e8ee;
+    color: #7DC855;
+    font-weight: 500;
+    font-size: 12pt;
+    background-repeat: no-repeat;
+    background-position: right 50px center;
+}
+
+.button-container {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.button-master-container {
+    padding-top: 18px;
+    padding-bottom: 5px;
+}
