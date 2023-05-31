@@ -3,6 +3,7 @@ import { ShopContext } from "../../context/shop-context";
 import { CartItem } from "../cart/cart-item";
 import { CustomerInfoForm } from "./customerInfo";
 import { ShippingForm } from "./shipping";
+import axios from "axios";
 
 import "./checkout.css";
 
@@ -19,9 +20,10 @@ export const Checkout = () => {
       .then((data) => setProducts(data));
   }, []);
 
-  const handlePickUpOptionChange = (event) => {
+  const handlePickUpOptionChange = async (event) => {
     setPickUpOption(event.target.checked);
   };
+  
 
   const handleTabChange = (event) => {
     setSelectedTab(event.target.id);
