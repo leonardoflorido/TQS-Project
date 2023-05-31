@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./shipping.css";
 
-export const ShippingForm = ({ setSelectedTab }) => {
+export const ShippingForm = ({ setSelectedTab, setPickupId }) => { // Add setPickupId as a prop
   const [deliveryOption, setDeliveryOption] = useState("pickup");
   const [pickupPoints, setPickupPoints] = useState([]);
   const [selectedPickupPoint, setSelectedPickupPoint] = useState(null);
@@ -32,6 +32,7 @@ export const ShippingForm = ({ setSelectedTab }) => {
       (point) => point.id === selectedPointId
     );
     setSelectedPickupPoint(selectedPoint);
+    setPickupId(selectedPointId); // Update the pickupId state in Checkout
   };
 
   return (
@@ -58,6 +59,7 @@ export const ShippingForm = ({ setSelectedTab }) => {
             )}
           </div>
         )}
+        {/* Add other shipping options and form inputs */}
       </form>
     </div>
   );

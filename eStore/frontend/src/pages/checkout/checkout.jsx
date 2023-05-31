@@ -21,6 +21,7 @@ export const Checkout = () => {
     phone: "",
     address: "",
   });
+  const [pickupId, setPickupId] = useState(""); // Added pickupId state
   const [orderStatus, setOrderStatus] = useState("Pending");
 
   useEffect(() => {
@@ -38,8 +39,10 @@ export const Checkout = () => {
     setSelectedTab(event.target.id);
   };
 
+
   const handlePlaceOrder = () => {
     const order = {
+      pickupId, // Add pickupId to the order object
       customer: customerInfo,
       eStore: "Apple",
       date: "2023-06-03",
@@ -54,9 +57,8 @@ export const Checkout = () => {
     };
 
     console.log(order);
-
-    setSelectedTab("tab1");
   };
+
 
   const handleCustomerInfoChange = (updatedCustomerInfo) => {
     setCustomerInfo(updatedCustomerInfo);
@@ -170,6 +172,7 @@ export const Checkout = () => {
             pickUpOption={pickUpOption}
             handlePickUpOptionChange={handlePickUpOptionChange}
             setSelectedTab={setSelectedTab}
+            setPickupId={setPickupId} // Pass setPickupId as a prop to ShippingForm
           />
         </section>
 
