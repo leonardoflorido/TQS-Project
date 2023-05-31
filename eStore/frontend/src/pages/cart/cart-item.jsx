@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { ShopContext } from "../../context/shop-context";
 
 export const CartItem = (props) => {
-  const { id, productName, price, quantity } = props.data;
-  const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
-    useContext(ShopContext);
+  const { id, productName, price } = props.data;
+  const { cartItems, addToCart, removeFromCart, updateCartItemCount } = useContext(ShopContext);
+
+  const cartItemCount = cartItems[id];
 
   return (
     <div className="cartItem">
@@ -14,7 +15,7 @@ export const CartItem = (props) => {
           <b>{productName}</b>
         </p>
         <p>
-          Quantity: {quantity}
+          Quantity: {cartItemCount}
         </p>
         <p>Price: ${price}</p>
         <div className="countHandler">
@@ -29,4 +30,3 @@ export const CartItem = (props) => {
     </div>
   );
 };
-
