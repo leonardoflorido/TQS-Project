@@ -50,5 +50,22 @@ class PickupRepositoryTest {
         assertEquals(pickup.getAddress(), result.getAddress());
         assertEquals(pickup.getStatus(), result.getStatus());
     }
+
+    @Test
+    void testFindAllByStatus() {
+        // Arrange
+        pickupRepository.save(pickup);
+
+        // Act
+        Pickup result = pickupRepository.findByEmail(pickup.getEmail());
+
+        // Assert
+        assertEquals(pickup.getName(), result.getName());
+        assertEquals(pickup.getEmail(), result.getEmail());
+        assertEquals(pickup.getPhone(), result.getPhone());
+        assertEquals(pickup.getPassword(), result.getPassword());
+        assertEquals(pickup.getAddress(), result.getAddress());
+        assertEquals(pickup.getStatus(), result.getStatus());
+    }
 }
 

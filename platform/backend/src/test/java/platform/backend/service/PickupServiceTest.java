@@ -161,5 +161,22 @@ class PickupServiceTest {
         assertNull(result);
         verify(pickupRepository, times(2)).saveAll(pickups);
     }
+
+    @Test
+    @DisplayName("Test to find all pickups by status")
+    @Order(9)
+    void testFindAllByStatus() {
+        // Arrange
+        String status = "Pending";
+        List<Pickup> pickups = Arrays.asList(pickup1, pickup2);
+        when(pickupRepository.findAllByStatus(status)).thenReturn(pickups);
+
+        // Act
+        List<Pickup> result = pickupService.findAllByStatus(status);
+
+        // Assert
+        assertEquals(pickups, result);
+        verify(pickupRepository, times(1)).findAllByStatus(status);
+    }
 }
 

@@ -125,7 +125,7 @@ class PickupControllerTest {
     @Order(7)
     void testRegisterMultipleValidPickups() throws Exception {
         Pickup pickup1 = new Pickup("Papelaria", "papelaria@email.com", "987654321", "papelaria", "Rua das Papelarias, 123", "Pending");
-        Pickup pickup2 = new Pickup("Restaurant XYZ", "restaurantxyz@email.com", "123456789", "restaurantxyz", "123 Main Street", "Pending");
+        Pickup pickup2 = new Pickup("Restaurant XYZ", "restaurantxyz@email.com", "123456789", "restaurantxyz", "123 Main Street", "Partner");
 
         List<Pickup> pickups = List.of(pickup1, pickup2);
 
@@ -145,5 +145,14 @@ class PickupControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JsonUtil.toJson(null)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Test to get all partners pickups")
+    @Order(9)
+    void testGetAllPartnersPickups() throws Exception {
+        mockMvc.perform(get("/pickup/get-partners"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 }
