@@ -36,4 +36,8 @@ public class PickupService {
     public List<Pickup> saveAll(List<Pickup> pickups) {
         return pickupRepository.saveAll(pickups);
     }
+
+    public List<Pickup> findAllByStatus(String partner) {
+        return pickupRepository.findAllByStatus(partner);
+    }
 }

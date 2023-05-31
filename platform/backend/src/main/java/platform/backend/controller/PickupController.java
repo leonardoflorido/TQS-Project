@@ -102,4 +102,16 @@ public class PickupController {
         // Save the pickups
         return new ResponseEntity<>(pickupService.saveAll(pickups), HttpStatus.CREATED);
     }
+
+    @GetMapping("/get-partners")
+    public ResponseEntity<List<Pickup>> getPartners() {
+        List<Pickup> pickups = pickupService.findAllByStatus("Partner");
+
+        // Verify if there are any pickups
+        if (pickups.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(pickups, HttpStatus.OK);
+    }
 }
