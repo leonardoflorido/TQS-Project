@@ -3,6 +3,8 @@ import { ShopContext } from "../../context/shop-context";
 import { CartItem } from "../cart/cart-item";
 import { CustomerInfoForm } from "./customerInfo";
 import { ShippingForm } from "./shipping";
+import { PaymentForm } from "./paymentForm";
+
 import axios from "axios";
 
 import "./checkout.css";
@@ -23,7 +25,7 @@ export const Checkout = () => {
   const handlePickUpOptionChange = async (event) => {
     setPickUpOption(event.target.checked);
   };
-  
+
 
   const handleTabChange = (event) => {
     setSelectedTab(event.target.id);
@@ -139,8 +141,16 @@ export const Checkout = () => {
           id="content4"
           className={`tab-content ${selectedTab === "tab4" ? "active" : ""}`}
         >
-          <h3>Payment</h3>
-          <p>Payment options go here...</p>
+          <PaymentForm />
+          <div
+            className="button-container button-full"
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedTab("tab1");
+            }}
+          >
+            Place Order
+          </div>
           <div className="button-master-container">
             <div
               className="button-container button-continue"
@@ -160,17 +170,9 @@ export const Checkout = () => {
             >
               Cancel
             </div>
-            <div
-              className="button-container button-continue"
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedTab("tab1");
-              }}
-            >
-              Place Order
-            </div>
           </div>
         </section>
+
       </div>
     </div>
   );
