@@ -40,9 +40,9 @@ export const Checkout = () => {
   };
 
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const order = {
-      pickupId, // Add pickupId to the order object
+      pickupId,
       customer: customerInfo,
       eStore: "Apple",
       date: "2023-06-03",
@@ -55,8 +55,17 @@ export const Checkout = () => {
         })),
       status: "Pending",
     };
-
-    console.log(order);
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/orders/create",
+        order
+      );
+      console.log("Order created:", response.data);
+      // Optionally, you can handle the successful response here or redirect to a success page
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
   };
 
 
