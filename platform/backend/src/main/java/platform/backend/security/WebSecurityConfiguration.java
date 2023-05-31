@@ -8,7 +8,7 @@ public class WebSecurityConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost")
+                .allowedOrigins("http://localhost:3001", "http://localhost")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH");
     }
 }
