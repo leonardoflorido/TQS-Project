@@ -15,6 +15,13 @@ export const Checkout = () => {
   const totalAmount = getTotalCartAmount();
   const [pickUpOption, setPickUpOption] = useState(false);
   const [selectedTab, setSelectedTab] = useState("tab1");
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
+  const [orderStatus, setOrderStatus] = useState("Pending");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/products/")
@@ -30,6 +37,31 @@ export const Checkout = () => {
   const handleTabChange = (event) => {
     setSelectedTab(event.target.id);
   };
+
+  const handlePlaceOrder = () => {
+    const order = {
+      customer: customerInfo,
+      eStore: "Apple",
+      date: "2023-06-03",
+      products: products
+        .filter((product) => cartItems[product.id] !== 0)
+        .map((product) => ({
+          name: product.name,
+          price: product.price,
+          quantity: cartItems[product.id],
+        })),
+      status: "Pending",
+    };
+
+    console.log(order);
+
+    setSelectedTab("tab1");
+  };
+
+  const handleCustomerInfoChange = (updatedCustomerInfo) => {
+    setCustomerInfo(updatedCustomerInfo);
+  };
+
 
   return (
     <div>
@@ -123,8 +155,12 @@ export const Checkout = () => {
           id="content2"
           className={`tab-content ${selectedTab === "tab2" ? "active" : ""}`}
         >
-          <CustomerInfoForm setSelectedTab={setSelectedTab} />
+          <CustomerInfoForm
+            setCustomerInfo={setCustomerInfo}
+            setSelectedTab={setSelectedTab}
+          />
         </section>
+
 
         <section
           id="content3"
@@ -144,13 +180,11 @@ export const Checkout = () => {
           <PaymentForm />
           <div
             className="button-container button-full"
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedTab("tab1");
-            }}
+            onClick={handlePlaceOrder}
           >
             Place Order
           </div>
+
           <div className="button-master-container">
             <div
               className="button-container button-continue"
