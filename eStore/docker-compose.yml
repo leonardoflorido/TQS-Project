@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  django:
+    container_name: backendtqs
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+  react:
+    container_name: frontendtqs
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      API_HOST: django

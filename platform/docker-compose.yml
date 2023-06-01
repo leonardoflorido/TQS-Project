@@ -1,0 +1,25 @@
+version: "3.3"
+services:
+  db:
+    container_name: tqs-db-platform
+    image: mongo:latest
+    ports:
+      - 27017:27017
+  api:
+    container_name: tqs-backend-platform
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  react:
+    container_name: tqs-frontend-platform
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    environment:
+      API_HOST: api
