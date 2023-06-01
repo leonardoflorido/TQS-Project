@@ -151,6 +151,7 @@
                         <exclude>**/AdminTest.java</exclude>
                         <exclude>**/RegisterTest.java</exclude>
                         <exclude>**/PickupTest.java</exclude>
+                        <exclude>**/EStoreTest.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

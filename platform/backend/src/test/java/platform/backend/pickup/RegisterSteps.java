@@ -27,7 +27,7 @@ public class RegisterSteps {
         driver = new EdgeDriver(options);
         js = (JavascriptExecutor) driver;
         driver.manage().window().setSize(new Dimension(1552, 849));
-        driver.get("http://localhost:3000/");
+        driver.get("http://localhost:3001/");
     }
 
     @And("the user wants to register a pickup")

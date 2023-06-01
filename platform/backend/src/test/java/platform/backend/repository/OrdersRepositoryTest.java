@@ -55,7 +55,7 @@ class OrdersRepositoryTest {
         assertEquals(orders.getPickupId(), result.get(0).getPickupId());
         // Assert customer
         assertEquals(orders.getCustomer(), result.get(0).getCustomer());
-        // Assert eStore
+        // Assert estore
         assertEquals(orders.geteStore(), result.get(0).geteStore());
         // Assert date
         assertEquals(orders.getDate(), result.get(0).getDate());
@@ -78,7 +78,7 @@ class OrdersRepositoryTest {
         assertEquals(orders.getPickupId(), result.get(0).getPickupId());
         // Assert customer
         assertEquals(orders.getCustomer(), result.get(0).getCustomer());
-        // Assert eStore
+        // Assert estore
         assertEquals(orders.geteStore(), result.get(0).geteStore());
         // Assert date
         assertEquals(orders.getDate(), result.get(0).getDate());
