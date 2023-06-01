@@ -6,19 +6,23 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 
 export const mainListItems = (
-	<React.Fragment>
-		<ListItemButton>
-			<ListItemIcon>
-				<DashboardIcon />
-			</ListItemIcon>
-			<ListItemText primary="Dashboard" />
-		</ListItemButton>
-		<ListItemButton>
-			<ListItemIcon>
-				<PersonIcon />
-			</ListItemIcon>
-			<ListItemText primary="Logout" onClick={(e) => {e.preventDefault(); localStorage.removeItem("user"); window.location.href="/admin/login"}} />
-		</ListItemButton>
-	</React.Fragment>
+    <React.Fragment>
+        <ListItemButton>
+            <ListItemIcon>
+                <DashboardIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Dashboard"/>
+        </ListItemButton>
+        <ListItemButton>
+            <ListItemIcon>
+                <PersonIcon/>
+            </ListItemIcon>
+            <ListItemText primary="Logout" onClick={(e) => {
+                e.preventDefault();
+                localStorage.removeItem("user");
+                window.location.href = "/admin/login"
+            }}/>
+        </ListItemButton>
+    </React.Fragment>
 );
 

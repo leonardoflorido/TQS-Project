@@ -5,7 +5,7 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    command: ["--bind_ip", "0.0.0.0"]
+    command: [ "--bind_ip", "0.0.0.0" ]
   api:
     container_name: tqs-backend-platform
     build:

@@ -4,11 +4,11 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-  }
-  
-  .payment-image {
+}
+
+.payment-image {
     width: 300px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 20px; /* Add margin-bottom for spacing */
-  }
+}
   
