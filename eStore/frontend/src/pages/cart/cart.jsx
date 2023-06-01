@@ -12,7 +12,7 @@ export const Cart = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/")
+        fetch("http://34.175.80.212:8000/api/products/")
             .then((response) => response.json())
             .then((data) => setProducts(data));
     }, []);
@@ -26,7 +26,7 @@ export const Cart = () => {
                 {products.map((product) => {
                     const cartItemCount = cartItems[product.id];
                     if (cartItemCount !== 0) {
-                        const imageUrl = `http://127.0.0.1:8000${product.image}`;
+                        const imageUrl = `http://34.175.80.212:8000${product.image}`;
                         return <CartItem key={product.id} data={product} imageUrl={imageUrl}/>;
                     }
                     return null;
