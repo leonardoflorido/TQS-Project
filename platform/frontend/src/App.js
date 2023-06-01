@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./scenes/dashboard/Dashboard.jsx";
 import Login from "./scenes/login/login.jsx";
-import Signup from "./scenes/signup/signup.tsx";
+import Signup from "./scenes/signup/signup.jsx";
 import ACP from "./scenes/acp/ACP.jsx";
 
 function App() {

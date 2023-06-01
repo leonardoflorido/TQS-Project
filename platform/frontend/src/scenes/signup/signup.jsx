@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props: any) {
+function Copyright(props) {
 	return (
 		<Typography
 			variant="body2"
@@ -32,7 +32,7 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUp() {
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		const response = await fetch("http://localhost:8080/pickup/register", {
