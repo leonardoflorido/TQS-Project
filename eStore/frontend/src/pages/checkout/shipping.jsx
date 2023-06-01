@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./shipping.css";
 
-export const ShippingForm = ({ setSelectedTab }) => {
+export const ShippingForm = ({ setSelectedTab, setPickupId }) => {
   const [deliveryOption, setDeliveryOption] = useState("pickup");
   const [pickupPoints, setPickupPoints] = useState([]);
   const [selectedPickupPoint, setSelectedPickupPoint] = useState(null);
@@ -15,7 +15,7 @@ export const ShippingForm = ({ setSelectedTab }) => {
 
   const fetchPickupPoints = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/pickup/get-all");
+      const response = await axios.get("http://localhost:8080/pickup/get-partners");
       setPickupPoints(response.data);
     } catch (error) {
       console.error("Error fetching pickup points:", error);
@@ -32,6 +32,11 @@ export const ShippingForm = ({ setSelectedTab }) => {
       (point) => point.id === selectedPointId
     );
     setSelectedPickupPoint(selectedPoint);
+    setPickupId(selectedPointId); // Update the pickupId state in Checkout
+  };
+
+  const handleContinue = () => {
+    setSelectedTab("tab4"); // Set selected tab to tab4
   };
 
   return (
@@ -58,6 +63,15 @@ export const ShippingForm = ({ setSelectedTab }) => {
             )}
           </div>
         )}
+        {/* Add other shipping options and form inputs */}
+        <div className="button-master-container">
+          <div
+            className="button-container button-continue"
+            onClick={handleContinue}
+          >
+            Continue
+          </div>
+        </div>
       </form>
     </div>
   );

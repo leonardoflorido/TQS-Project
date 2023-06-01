@@ -15,6 +15,14 @@ export const Checkout = () => {
   const totalAmount = getTotalCartAmount();
   const [pickUpOption, setPickUpOption] = useState(false);
   const [selectedTab, setSelectedTab] = useState("tab1");
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
+  const [pickupId, setPickupId] = useState(""); // Added pickupId state
+  const [orderStatus, setOrderStatus] = useState("Pending");
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/products/")
@@ -30,6 +38,41 @@ export const Checkout = () => {
   const handleTabChange = (event) => {
     setSelectedTab(event.target.id);
   };
+
+
+  const handlePlaceOrder = async () => {
+    const order = {
+      pickupId,
+      customer: customerInfo,
+      eStore: "Apple",
+      date: "2023-06-03",
+      products: products
+        .filter((product) => cartItems[product.id] !== 0)
+        .map((product) => ({
+          name: product.name,
+          price: product.price,
+          quantity: cartItems[product.id],
+        })),
+      status: "Pending",
+    };
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/orders/create",
+        order
+      );
+      console.log("Order created:", response.data);
+      // Optionally, you can handle the successful response here or redirect to a success page
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  };
+
+
+  const handleCustomerInfoChange = (updatedCustomerInfo) => {
+    setCustomerInfo(updatedCustomerInfo);
+  };
+
 
   return (
     <div>
@@ -123,8 +166,12 @@ export const Checkout = () => {
           id="content2"
           className={`tab-content ${selectedTab === "tab2" ? "active" : ""}`}
         >
-          <CustomerInfoForm setSelectedTab={setSelectedTab} />
+          <CustomerInfoForm
+            setCustomerInfo={setCustomerInfo}
+            setSelectedTab={setSelectedTab}
+          />
         </section>
+
 
         <section
           id="content3"
@@ -134,6 +181,7 @@ export const Checkout = () => {
             pickUpOption={pickUpOption}
             handlePickUpOptionChange={handlePickUpOptionChange}
             setSelectedTab={setSelectedTab}
+            setPickupId={setPickupId} // Pass setPickupId as a prop to ShippingForm
           />
         </section>
 
@@ -144,13 +192,11 @@ export const Checkout = () => {
           <PaymentForm />
           <div
             className="button-container button-full"
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedTab("tab1");
-            }}
+            onClick={handlePlaceOrder}
           >
             Place Order
           </div>
+
           <div className="button-master-container">
             <div
               className="button-container button-continue"
