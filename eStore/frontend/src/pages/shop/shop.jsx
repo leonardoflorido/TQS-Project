@@ -19,7 +19,7 @@ export const Shop = () => {
 
             <div className="products">
                 {products.map((product) => (
-                    <Product key={product.id} data={product} />
+                    <Product key={product.id} data={product}/>
                 ))}
             </div>
         </div>
