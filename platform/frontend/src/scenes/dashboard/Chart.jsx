@@ -3,18 +3,6 @@ import {useTheme} from "@mui/material/styles";
 import {Label, Line, LineChart, ResponsiveContainer, XAxis, YAxis,} from "recharts";
 import Title from "../../components/Title";
 
-// Generate Sales Data
-function createData(time, amount) {
-    return {time, amount};
-}
-
-const data = [
-    createData("01-05-2023", 0),
-    createData("04-05-2023", 3),
-    createData("05-05-2023", 6),
-    createData("07-05-2023", 2),
-    createData("10-05-2023", 9),
-];
 
 export default function Chart() {
     const [data, setData] = React.useState([]);

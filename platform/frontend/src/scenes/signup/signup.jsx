@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
-<<<<<<< HEAD:platform/frontend/src/scenes/signup/signup.jsx
 function Copyright(props) {
 	return (
 		<Typography
@@ -28,30 +27,11 @@ function Copyright(props) {
 			{"."}
 		</Typography>
 	);
-=======
-function Copyright(props: any) {
-    return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            {...props}
-        >
-            {"Copyright © "}
-            <Link color="inherit" href="https://mui.com/">
-                TQS
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
->>>>>>> 3c3d7e61692affdfec0ddc7be684b4fdb4f8bef7:platform/frontend/src/scenes/signup/signup.tsx
 }
 
 const theme = createTheme();
 
 export default function SignUp() {
-<<<<<<< HEAD:platform/frontend/src/scenes/signup/signup.jsx
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -74,30 +54,6 @@ export default function SignUp() {
 		const json = await response.json();
 		json.email ? alert("Success\nPlease Login") : alert("Error");
 	};
-=======
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const response = await fetch("http://localhost:8080/pickup/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                username: "platform",
-                password: '!:s,d>m52""/f(^/-dSR',
-            },
-            body: JSON.stringify({
-                name: data.get("Name"),
-                email: data.get("email"),
-                phone: data.get("phone"),
-                password: data.get("password"),
-                address: data.get("Address"),
-                status: "Pending"
-            })
-        });
-        const json = await response.json();
-        json.email ? alert("Success\nPlease Login") : alert("Error");
-    };
->>>>>>> 3c3d7e61692affdfec0ddc7be684b4fdb4f8bef7:platform/frontend/src/scenes/signup/signup.tsx
 
     return (
         <ThemeProvider theme={theme}>

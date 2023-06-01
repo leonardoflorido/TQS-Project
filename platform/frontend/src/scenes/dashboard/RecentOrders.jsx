@@ -2,9 +2,6 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Title from '../../components/Title';
 
-function preventDefault(event) {
-    event.preventDefault();
-}
 
 export default function RecentOrders() {
     const [data, setData] = React.useState([]);
