@@ -1,5 +1,6 @@
 FROM node:latest
 COPY . ./
 RUN npm install --force
-EXPOSE 3001
+ENV PORT=3001
+EXPOSE $PORT
 CMD ["npm", "start"]
