@@ -61,7 +61,9 @@ export const Checkout = () => {
         "http://localhost:8080/orders/create",
         order
       );
+      window.alert("Order created successfully");
       console.log("Order created:", response.data);
+      window.location.href = "/";
       // Optionally, you can handle the successful response here or redirect to a success page
     } catch (error) {
       console.error("Error creating order:", error);
