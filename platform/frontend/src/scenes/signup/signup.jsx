@@ -19,12 +19,6 @@ function Copyright(props) {
 			align="center"
 			{...props}
 		>
-			{"Copyright © "}
-			<Link color="inherit" href="https://mui.com/">
-				TQS
-			</Link>{" "}
-			{new Date().getFullYear()}
-			{"."}
 		</Typography>
 	);
 }

@@ -64,8 +64,6 @@ export default function RecentOrders() {
             <Typography color="text.secondary" sx={{flex: 1}}>
                 on {data.date}
             </Typography>
-            <div>
-            </div>
         </React.Fragment>
     );
 }

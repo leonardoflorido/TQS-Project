@@ -35,13 +35,6 @@ function Copyright(props) {
                     Admin?
                 </Link>
             )}
-            <div style={{margin: '40px'}}></div>
-            {"Copyright © "}
-            <Link color="inherit" href="#">
-                TQS
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
         </Typography>
     );
 }
