@@ -47,7 +47,7 @@ export default function SignIn(props) {
         const credentials = new FormData(event.currentTarget);
 
         if (props.user === "admin") {
-            const response = await fetch("http://localhost:8080/admin/login", {
+            const response = await fetch("http://34.175.80.212:8080/admin/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function SignIn(props) {
                 alert("Login failed");
             }
         } else {
-            const response = await fetch("http://localhost:8080/pickup/login", {
+            const response = await fetch("http://34.175.80.212:8080/pickup/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

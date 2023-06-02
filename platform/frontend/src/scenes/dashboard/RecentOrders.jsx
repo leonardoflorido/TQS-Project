@@ -8,7 +8,7 @@ export default function RecentOrders() {
     React.useEffect(() => {
         async function fetchOrders() {
             const response = await fetch(
-                "http://localhost:8080/orders/get-all",
+                "http://34.175.80.212:8080/orders/get-all",
                 {
                     method: "GET",
                     headers: {

@@ -14,7 +14,7 @@ export default function Orders() {
         // Fetch pickup orders
         async function fetchOrders() {
             const response = await fetch(
-                `http://localhost:8080/orders/get-by-pickup/${localStorage.getItem(
+                `http://34.175.80.212:8080/orders/get-by-pickup/${localStorage.getItem(
                     "pickupId"
                 )}`,
                 {
@@ -59,7 +59,7 @@ export default function Orders() {
         async function updateOrder(id, status) {
             console.log(id);
             console.log(status);
-            await fetch("http://localhost:8080/orders/update-status", {
+            await fetch("http://34.175.80.212:8080/orders/update-status", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

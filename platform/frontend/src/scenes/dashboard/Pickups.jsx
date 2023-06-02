@@ -15,7 +15,7 @@ export default function Pickups() {
 
         async function fetchData() {
             const response = await fetch(
-                "http://localhost:8080/pickup/get-all",
+                "http://34.175.80.212:8080/pickup/get-all",
                 {
                     method: "GET",
                     headers: {
@@ -41,7 +41,7 @@ export default function Pickups() {
     const handleSave = () => {
         // Send the rows to the backend
         function updatePikcup(pickup) {
-            fetch("http://localhost:8080/pickup/update-status", {
+            fetch("http://34.175.80.212:8080/pickup/update-status", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
