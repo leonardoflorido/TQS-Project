@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./shipping.css";
 
-export const ShippingForm = ({setSelectedTab, setPickupId}) => {
+export const ShippingForm = ({ setSelectedTab, setPickupId }) => {
     const [deliveryOption, setDeliveryOption] = useState("pickup");
     const [pickupPoints, setPickupPoints] = useState([]);
     const [selectedPickupPoint, setSelectedPickupPoint] = useState(null);
@@ -15,8 +15,8 @@ export const ShippingForm = ({setSelectedTab, setPickupId}) => {
 
     const fetchPickupPoints = async () => {
         try {
-            const response = await fetch("http://34.175.80.212:8080/pickup/get-partners");
-            
+            const response = await fetch("http://34.175.80.212:8080/pickup/get-partners", { mode: 'no-cors' });
+
             setPickupPoints(response.data);
         } catch (error) {
             console.error("Error fetching pickup points:", error);
