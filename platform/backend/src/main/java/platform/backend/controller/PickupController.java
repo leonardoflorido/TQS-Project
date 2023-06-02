@@ -74,7 +74,6 @@ public class PickupController {
     }
 
     @GetMapping("/get-all")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Pickup>> getAllPickups() {
         List<Pickup> pickups = pickupService.findAll();
 
@@ -105,7 +104,6 @@ public class PickupController {
     }
 
     @GetMapping("/get-partners")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Pickup>> getPartners() {
         List<Pickup> pickups = pickupService.findAllByStatus("Partner");
 
