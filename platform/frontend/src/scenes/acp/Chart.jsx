@@ -13,7 +13,7 @@ export default function Chart() {
 
         async function fetchOrders() {
             const response = await fetch(
-                `http://34.175.80.212:8080/orders/get-by-pickup/${localStorage.getItem(
+                `http://34.175.95.229:8080/orders/get-by-pickup/${localStorage.getItem(
                     "pickupId"
                 )}`,
                 {

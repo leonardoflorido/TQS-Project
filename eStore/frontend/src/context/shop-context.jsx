@@ -8,7 +8,7 @@ export const ShopContextProvider = (props) => {
 
     useEffect(() => {
         // Fetch products data
-        fetch("http://34.175.80.212:8000/api/products/")
+        fetch("http://34.175.95.229:8000/api/products/")
             .then((response) => response.json())
             .then((data) => {
                 setProducts(data);

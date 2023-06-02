@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 backend,platform.backend,BackendApplication,5,3,0,0,2,1,1,1,1,1
 backend,platform.backend.model,Admin,0,28,0,0,0,11,0,6,0,6
-backend,platform.backend.model,Orders,0,69,0,0,0,29,0,15,0,15
 backend,platform.backend.model,Pickup,0,69,0,0,0,29,0,15,0,15
+backend,platform.backend.model,Orders,0,69,0,0,0,29,0,15,0,15
 backend,platform.backend.pojo,OrdersPOJO,8,45,0,0,4,16,2,8,2,8
 backend,platform.backend.pojo,PickupPOJO,20,39,0,0,10,14,5,7,5,7
 backend,platform.backend.record,Login,0,15,0,0,0,1,0,3,0,3
@@ -12,8 +12,8 @@ backend,platform.backend.controller,PickupController,30,156,6,12,6,29,6,10,0,7
 backend,platform.backend.controller,AdminController,10,57,2,4,2,11,2,4,0,3
 backend,platform.backend.controller,OrdersController,5,97,1,5,1,20,1,9,0,7
 backend,platform.backend.service,OrdersService,0,39,0,0,0,9,0,7,0,7
-backend,platform.backend.service,AdminService,0,17,0,0,0,5,0,3,0,3
 backend,platform.backend.service,PickupService,0,39,0,0,0,9,0,7,0,7
+backend,platform.backend.service,AdminService,0,17,0,0,0,5,0,3,0,3
 backend,platform.backend.mapper,OrdersMapper,3,30,0,0,1,8,1,1,1,1
 backend,platform.backend.mapper,PickupMapper,3,30,0,0,1,8,1,1,1,1
 backend,platform.backend.security,WebSecurityConfiguration,0,70,0,0,0,5,0,2,0,2

@@ -15,7 +15,7 @@ export const ShippingForm = ({ setSelectedTab, setPickupId }) => {
 
     const fetchPickupPoints = async () => {
         try {
-            const response = await axios.get("http://34.175.80.212:8080/pickup/get-partners");
+            const response = await axios.get("http://34.175.95.229:8080/pickup/get-partners");
             setPickupPoints(response.data);
         } catch (error) {
             console.error("Error fetching pickup points:", error);

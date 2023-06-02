@@ -29,7 +29,7 @@ export default function SignUp() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		const response = await fetch("http://34.175.80.212:8080/pickup/register", {
+		const response = await fetch("http://34.175.95.229:8080/pickup/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

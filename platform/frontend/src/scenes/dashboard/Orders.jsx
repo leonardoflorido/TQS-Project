@@ -7,7 +7,7 @@ export default function Orders() {
     React.useEffect(() => {
         async function fetchData() {
             const response = await fetch(
-                "http://34.175.80.212:8080/orders/get-all",
+                "http://34.175.95.229:8080/orders/get-all",
                 {
                     method: "GET",
                     headers: {
@@ -20,7 +20,7 @@ export default function Orders() {
             }
             const orders = await response.json();
 
-            const res = await fetch("http://34.175.80.212:8080/pickup/get-all", {
+            const res = await fetch("http://34.175.95.229:8080/pickup/get-all", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -25,7 +25,7 @@ export const Checkout = () => {
     const [orderStatus, setOrderStatus] = useState("Pending");
 
     useEffect(() => {
-        fetch("http://34.175.80.212:8000/api/products/")
+        fetch("http://34.175.95.229:8000/api/products/")
             .then((response) => response.json())
             .then((data) => setProducts(data));
     }, []);
@@ -58,7 +58,7 @@ export const Checkout = () => {
 
         try {
             const response = await axios.post(
-                "http://34.175.80.212:8080/orders/create",
+                "http://34.175.95.229:8080/orders/create",
                 order
             );
             window.alert("Order created successfully");
@@ -137,7 +137,7 @@ export const Checkout = () => {
                     <div className="cart">
                         {products.map((product) => {
                             if (cartItems[product.id] !== 0) {
-                                const imageUrl = `http://34.175.80.212:8000/${product.image}`;
+                                const imageUrl = `http://34.175.95.229:8000/${product.image}`;
                                 return (
                                     <CartItem
                                         key={product.id}
