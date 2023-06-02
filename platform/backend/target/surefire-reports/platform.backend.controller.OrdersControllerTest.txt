@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: platform.backend.controller.OrdersControllerTest
--------------------------------------------------------------------------------
-Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.238 s - in platform.backend.controller.OrdersControllerTest
