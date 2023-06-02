@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrdersMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">platform.backend.mapper</a> &gt; <span class="el_source">OrdersMapper.java</span></div><h1>OrdersMapper.java</h1><pre class="source lang-java linenums">package platform.backend.mapper;
+
+import platform.backend.model.Orders;
+import platform.backend.pojo.OrdersPOJO;
+
+<span class="nc" id="L6">public class OrdersMapper {</span>
+    public static Orders mapPOJOToOrders(OrdersPOJO ordersPOJO) {
+<span class="fc" id="L8">        Orders orders = new Orders();</span>
+<span class="fc" id="L9">        orders.setPickupId(ordersPOJO.getPickupId());</span>
+<span class="fc" id="L10">        orders.setCustomer(ordersPOJO.getCustomer());</span>
+<span class="fc" id="L11">        orders.seteStore(ordersPOJO.geteStore());</span>
+<span class="fc" id="L12">        orders.setDate(ordersPOJO.getDate());</span>
+<span class="fc" id="L13">        orders.setProducts(ordersPOJO.getProducts());</span>
+<span class="fc" id="L14">        orders.setStatus(ordersPOJO.getStatus());</span>
+<span class="fc" id="L15">        return orders;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

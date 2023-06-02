@@ -1,7 +1,6 @@
 package platform.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import platform.backend.model.Orders;
 import platform.backend.repository.OrdersRepository;
@@ -17,8 +16,8 @@ public class OrdersService {
         this.ordersRepository = ordersRepository;
     }
 
-    public Orders save(ResponseEntity<Orders> order) {
-        return ordersRepository.save(order);
+    public Orders save(Orders orders) {
+        return ordersRepository.save(orders);
     }
 
     public List<Orders> findAll() {
