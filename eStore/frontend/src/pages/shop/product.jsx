@@ -14,7 +14,7 @@ export const Product = (props) => {
 
     return (
         <div className="product">
-            <img alt={name} src={`http://127.0.0.1:8000${image}`}/>
+            <img alt={name} src={`http://34.175.80.212:8000${image}`}/>
             <div className="description">
                 <p>
                     <b>{name}</b>

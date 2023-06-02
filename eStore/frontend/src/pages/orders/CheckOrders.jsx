@@ -14,7 +14,7 @@ export const CheckOrders = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:8080/orders/get-by-customer/${email}`);
+            const response = await axios.get(`http://34.175.80.212:8080/orders/get-by-customer/${email}`);
             setOrderInfo(response.data);
             setErrorMessage("");
         } catch (error) {

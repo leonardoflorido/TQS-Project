@@ -6,7 +6,7 @@ export const Shop = () => {
     const [products, setProducts] = React.useState([]);
     // Fetch api
     React.useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/")
+        fetch("http://34.175.80.212:8000/api/products/")
             .then((response) => response.json())
             .then((data) => setProducts(data));
     }, []);
