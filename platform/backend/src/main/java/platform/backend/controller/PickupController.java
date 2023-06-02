@@ -16,6 +16,7 @@ import java.util.List;
 import static platform.backend.mapper.PickupMapper.mapPOJOToPickup;
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RequestMapping("/pickup")
 public class PickupController {
     private final PickupService pickupService;

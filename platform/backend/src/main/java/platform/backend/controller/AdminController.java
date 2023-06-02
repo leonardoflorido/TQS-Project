@@ -15,6 +15,7 @@ import platform.backend.service.AdminService;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 public class AdminController {
     private final AdminService adminService;
 

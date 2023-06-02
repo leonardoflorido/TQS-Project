@@ -15,6 +15,7 @@ import static platform.backend.mapper.OrdersMapper.mapPOJOToOrders;
 
 
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RequestMapping("/orders")
 public class OrdersController {
     private final OrdersService ordersService;
