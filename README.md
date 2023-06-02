@@ -1,5 +1,13 @@
 # TQS Project
 
+Our project revolves around the idea of a platform that allows for a network of pickups points.
+We will act as a middleman between eCommerce Stores and Pickups. We will have on one side eCommerce sites that partner
+with us and on the other side Pickups.
+This will enhance the economy of the physical stores that partner with us and allow for customer to have a broader
+delivery choice. To access the project deployed on the Google Cloud platform, simply follow the links provided in the
+[Bookmarks](#bookmarks) section.
+Alternatively, if you prefer to run the project on your local machine, please follow the instructions below.
+
 ## Installation
 
 Clone the repository:
@@ -62,6 +70,7 @@ Install requirements:
  ```
 
 ## How To Run The Database
+
 Run the following command:
 
  ```console
@@ -101,6 +110,7 @@ $ npm start
 ```
 
 ## How To Run The Tests
+
 Run the following command:
 
 - Inside the `platform/backend` folder, run:
@@ -111,16 +121,19 @@ $ mvn test
 
 ## Bookmarks
 
-- Link to the [eStore](http://localhost:3000/)
-- Link to the [Platform](http://localhost:3001/)
-- Link to the [Platform API Documentation](http://localhost:8080/swagger-ui/index.html#/)
+- Link to the [eStore](http://34.175.95.229:3000/)
+- Link to the [Platform](http://34.175.95.229:3001/)
+- Link to the [Platform API Documentation](http://34.175.95.229:8080/swagger-ui/index.html#/)
+- Link to the [GitHub Projects](https://github.com/users/leonardoflorido/projects/3)
+- Link to the [SonarCloud](https://sonarcloud.io/summary/new_code?id=leonardoflorido_TQS-Project)
+- Link to the [GitHub Actions](https://github.com/leonardoflorido/TQS-Project/actions)
 
 Note:
 
 - To view the API documentation, the backend must be running.
 
-## Authors
+## Team
 
-- [Leonardo Flórido](https://github.com/leonardoflorido)
-- [Gabriel Hall](https://github.com/GabrielHall02)
-- [Tomás Almeida](https://github.com/TomasAlmeida8)
+- DevOps - [Leonardo Flórido](https://github.com/leonardoflorido)
+- Team Coordinator - [Gabriel Hall](https://github.com/GabrielHall02)
+- Product Owner - [Tomás Almeida](https://github.com/TomasAlmeida8)
