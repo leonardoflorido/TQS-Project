@@ -58,7 +58,7 @@ export const Checkout = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8080/orders/create",
+                "http://34.175.80.212:8080/orders/create",
                 order
             );
             window.alert("Order created successfully");
