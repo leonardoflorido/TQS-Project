@@ -72,8 +72,9 @@ public class PickupController {
         // Update the pickup
         return new ResponseEntity<>(pickupService.save(pickupFound), HttpStatus.OK);
     }
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/get-all")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Pickup>> getAllPickups() {
         List<Pickup> pickups = pickupService.findAll();
 
@@ -102,8 +103,9 @@ public class PickupController {
         // Save the pickups
         return new ResponseEntity<>(pickupService.saveAll(pickups), HttpStatus.CREATED);
     }
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/get-partners")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Pickup>> getPartners() {
         List<Pickup> pickups = pickupService.findAllByStatus("Partner");
 
