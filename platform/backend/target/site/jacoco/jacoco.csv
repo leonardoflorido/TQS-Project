@@ -12,8 +12,8 @@ backend,platform.backend.controller,PickupController,30,156,6,12,6,29,6,10,0,7
 backend,platform.backend.controller,AdminController,10,57,2,4,2,11,2,4,0,3
 backend,platform.backend.controller,OrdersController,5,97,1,5,1,20,1,9,0,7
 backend,platform.backend.service,OrdersService,0,39,0,0,0,9,0,7,0,7
-backend,platform.backend.service,PickupService,0,39,0,0,0,9,0,7,0,7
 backend,platform.backend.service,AdminService,0,17,0,0,0,5,0,3,0,3
+backend,platform.backend.service,PickupService,0,39,0,0,0,9,0,7,0,7
 backend,platform.backend.mapper,OrdersMapper,3,30,0,0,1,8,1,1,1,1
 backend,platform.backend.mapper,PickupMapper,3,30,0,0,1,8,1,1,1,1
 backend,platform.backend.security,WebSecurityConfiguration,0,54,0,0,0,5,0,2,0,2
