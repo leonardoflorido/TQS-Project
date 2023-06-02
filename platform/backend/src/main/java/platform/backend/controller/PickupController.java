@@ -104,7 +104,7 @@ public class PickupController {
     }
 
     @GetMapping("/get-partners")
-    @CrossOrigin(origins = {"http://localhost:3000", "http://34.175.80.212:3000"})
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Pickup>> getPartners() {
         List<Pickup> pickups = pickupService.findAllByStatus("Partner");
 
