@@ -15,7 +15,7 @@ export const ShippingForm = ({ setSelectedTab, setPickupId }) => {
 
     const fetchPickupPoints = async () => {
         try {
-            const response = await axios.get("api/pickup/get-partners", {
+            const response = await axios.get("/pickup/get-partners", {
             });
             setPickupPoints(response.data);
         } catch (error) {
